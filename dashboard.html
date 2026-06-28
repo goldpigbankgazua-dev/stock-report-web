@@ -125,6 +125,25 @@
   .type-badge.preview{color:#a8730b;border-color:#e6c200;background:#fffbe6;}
   .type-badge.review{color:#2563eb;border-color:#9bb8ff;background:#eef3ff;}
   @media (max-width:560px){ .cal-date{display:none;} }
+  /* sector view */
+  .sec-wrap{max-width:1180px;margin:16px auto;padding:0 18px;}
+  .sec-note{color:var(--muted);font-size:12px;margin-bottom:12px;}
+  .sec-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);}
+  .sec-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .sec-head .nm{font-weight:800;font-size:15.5px;}
+  .sec-tickers{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto;}
+  .sec-tk{font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--muted);cursor:pointer;}
+  .sec-summary{color:var(--ink);font-size:13px;margin:9px 0 12px;line-height:1.6;}
+  .sec-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:640px){ .sec-split{grid-template-columns:1fr;} }
+  .sec-col{border-radius:10px;padding:11px 13px;}
+  .sec-col.good{background:rgba(29,138,91,.08);border:1px solid rgba(29,138,91,.3);}
+  .sec-col.bad{background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.28);}
+  .sec-col h4{margin:0 0 7px;font-size:12.5px;}
+  .sec-col.good h4{color:#1d8a5b;} .sec-col.bad h4{color:#c0392b;}
+  .sec-col ul{margin:0;padding-left:1.05em;} .sec-col li{font-size:12.5px;margin:.32em 0;line-height:1.5;}
+  .sent{font-size:10.5px;font-weight:800;padding:2px 9px;border-radius:999px;}
+  .sent.pos{background:#e7f6ee;color:#1d8a5b;} .sent.neu{background:#fdeebf;color:#a8730b;} .sent.neg{background:#fde7e7;color:#c0392b;}
 </style>
 </head>
 <body>
@@ -140,6 +159,7 @@
 <div class="tabs">
   <button class="tab-btn on" data-view="reports">📋 리포트</button>
   <button class="tab-btn" data-view="calendar">📅 실적 캘린더</button>
+  <button class="tab-btn" data-view="sectors">🔭 섹터 뷰</button>
 </div>
 
 <div id="view-reports" class="view on">
@@ -164,6 +184,13 @@
   <div class="cal-wrap">
     <div class="cal-note" id="calNote"></div>
     <div class="cal-list" id="calList"></div>
+  </div>
+</div>
+
+<div id="view-sectors" class="view">
+  <div class="sec-wrap">
+    <div class="sec-note" id="secNote"></div>
+    <div id="secList"></div>
   </div>
 </div>
 
@@ -203,6 +230,158 @@
     { "ticker": "META",   "company": "메타",            "market": "US", "date": "2026-07-29", "quarter": "Q2 2026",      "confirmed": false },
     { "ticker": "QCOM",   "company": "퀄컴",            "market": "US", "date": "2026-07-30", "quarter": "FQ3 2026",     "confirmed": false },
     { "ticker": "AMZN",   "company": "아마존",          "market": "US", "date": "2026-07-31", "quarter": "Q2 2026",      "confirmed": false }
+  ]
+}
+</script>
+<script id="__sectors" type="application/json">{
+  "updated": "2026-06-28",
+  "cycle": "10일 주기",
+  "note": "공개 자료 기반 시장 시각 요약(자동 생성). 투자 권유 아님.",
+  "sectors": [
+    {
+      "name": "메모리 (DRAM·HBM·NAND)",
+      "tickers": ["MU", "005930", "000660", "SNDK"],
+      "sentiment": "긍정",
+      "summary": "AI가 견인하는 메모리 슈퍼사이클. 2026 DRAM 매출 약 3배($418B), HBM 시장 $7.3B→$55B 전망. HBM뿐 아니라 일반 DRAM까지 품귀로 가격·마진 동반 상승.",
+      "bull": [
+        "수요 주도형 사이클 — 과거 공급절감과 달리 AI 워크로드가 구조적으로 메모리 폭증을 유발",
+        "마이크론 2026 HBM 완판(장기계약)·SCA로 가격 가시성↑, 분기 마진 역대급",
+        "데이터센터로 캐파 쏠리며 일반 DRAM도 품귀 → 전 제품 마진 상승"
+      ],
+      "bear": [
+        "'메모리는 결국 사이클' — 2027 이후 HBM 가격 조정(경쟁·증설) 가능성",
+        "메모리세(memory tax)로 PC·소비자 BOM 상승 → 후방 수요 위축 우려",
+        "역대급 실적이 주가에 선반영 — 사이클 전환 신호에 민감"
+      ]
+    },
+    {
+      "name": "AI 가속기 GPU",
+      "tickers": ["NVDA", "AMD"],
+      "sentiment": "긍정",
+      "summary": "데이터센터 GPU 수요 폭발. 엔비디아 DC 매출 $75B·차기 가이드 $91B, AMD는 메타 6GW(MI450) 수주로 추격.",
+      "bull": [
+        "Blackwell 풀생산에도 총마진 75% 유지 — 가격결정력 건재",
+        "AMD MI450/MI400 + 빅테크 채택 확대로 2강 구도 형성",
+        "공급이 수요를 못 따라가는 구조(supply-constrained)"
+      ],
+      "bear": [
+        "커스텀 ASIC(브로드컴 XPU)·하이퍼스케일러 자체칩이 범용 GPU 점유 잠식",
+        "거대 시총·기대 선반영 → 매분기 서프라이즈 허들 상승",
+        "중국 수출규제, AI capex 둔화 시 직격탄"
+      ]
+    },
+    {
+      "name": "커스텀 AI 실리콘·네트워킹 (ASIC)",
+      "tickers": ["AVGO"],
+      "sentiment": "긍정",
+      "summary": "빅테크 맞춤형 AI 칩(XPU) 수요 급증. 브로드컴 AI반도체 +143%, FY27 AI 매출 $100B+ 목표.",
+      "bull": [
+        "구글·메타·OpenAI·앤트로픽 등 자체칩 수주 파이프라인 견조",
+        "데이터센터 네트워킹(스위칭) 강자 — GPU 외 랙 전체 수혜",
+        "VMware 소프트웨어가 안정적 캐시플로우로 변동성 완충"
+      ],
+      "bear": [
+        "소수 빅테크 고객 집중 — 계약 변경/축소 시 충격",
+        "네트워킹 비중 둔화(AI매출 40%→30%) 자체 언급",
+        "VMware 인수 차입 부담, AI capex 사이클 의존"
+      ]
+    },
+    {
+      "name": "파운드리",
+      "tickers": ["TSM"],
+      "sentiment": "긍정",
+      "summary": "AI/HPC 수요로 가동률·마진 동반 개선. TSMC FY26 성장률 '30%+' 상향, CapEx $56B로 증설, 2nm 양산 진입.",
+      "bull": [
+        "AI 공급망의 핵심 병목 — 선단공정 사실상 독점적 지위",
+        "2nm(N2) 램프로 다음 성장 레그 + 2027까지 공급 타이트",
+        "총마진 66%·ROE 40%대로 수익성 최상위"
+      ],
+      "bear": [
+        "환율(대만달러 강세)이 달러 환산 마진 직접 압박",
+        "미국·일본 해외팹 초기 가동은 원가·마진 희석",
+        "지정학(대만·관세) 리스크가 상시 디스카운트 요인"
+      ]
+    },
+    {
+      "name": "반도체 장비",
+      "tickers": ["ASML", "LRCX", "AMAT", "KLAC"],
+      "sentiment": "중립",
+      "summary": "파운드리·메모리 CapEx 증가의 후행 수혜. TSMC $56B·메모리 증설로 선단공정·HBM 장비 수요 견조하나 변동성 큼.",
+      "bull": [
+        "AI 캐파 증설 사이클의 직접 수혜(EUV·HBM·선단공정 장비)",
+        "ASML EUV 독점 등 진입장벽 높은 과점 구조",
+        "장기 공급부족 국면이 CapEx 상향 압력으로 작용"
+      ],
+      "bear": [
+        "중국 매출 비중·수출규제가 핵심 하방 변수",
+        "CapEx는 후행·변동성이 커 주문 급감 리스크",
+        "메모리·파운드리 사이클이 꺾이면 가장 먼저 둔화"
+      ]
+    },
+    {
+      "name": "반도체 IP·설계 (CPU IP·EDA)",
+      "tickers": ["ARM"],
+      "sentiment": "긍정",
+      "summary": "Armv9 단가 상승 + 데이터센터 진출. ARM 데이터센터 로열티 2배+, AGI CPU 수요 $2B+ (초기 전망 2배).",
+      "bull": [
+        "Armv9·컴퓨트 서브시스템 침투로 로열티 단가 상승",
+        "하이퍼스케일러 Arm 서버칩 램프 + DPU/SmartNIC ~100% 점유",
+        "라이선스 선행 → 향후 로열티 성장 가시성"
+      ],
+      "bear": [
+        "고밸류(PER 부담) — 성장 기대가 크게 선반영",
+        "자체 칩(AGI CPU) 진출이 고객(팹리스)과 경쟁·마진 희석",
+        "로열티는 스마트폰 출하·매크로에 민감"
+      ]
+    },
+    {
+      "name": "AI 데이터센터·뉴클라우드",
+      "tickers": ["IREN"],
+      "sentiment": "중립",
+      "summary": "전력 확보된 데이터센터의 희소가치에 베팅. 계약 ARR $3.1B, MS $9.7B·NVDA $3.4B 계약이나 현재는 적자.",
+      "bull": [
+        "전력·부지 확보가 AI 인프라 최대 병목 — 희소 자산 보유",
+        "MS·NVIDIA 앵커 계약 + GPU 15만 장 규모 확보",
+        "비트코인 채굴 → 고마진 AI 클라우드 전환 스토리"
+      ],
+      "bear": [
+        "현재 적자·매출은 2027 램프에 의존(기대-현실 괴리 큼)",
+        "대규모 CapEx → 증자·차입 희석/이자 부담",
+        "전력 인프라 지연(24~72개월)·비트코인 변동성·스토리 밸류"
+      ]
+    },
+    {
+      "name": "하이퍼스케일러 (클라우드 AI CapEx)",
+      "tickers": ["MSFT", "GOOGL", "AMZN", "META"],
+      "sentiment": "긍정",
+      "summary": "2026 5대 업체 CapEx $660~690B(전년 2배)로 사상 최대 투자 사이클. 수요가 공급을 초과(supply-constrained)하나 ROI 논쟁 상존.",
+      "bull": [
+        "전원이 '수요 초과' 상태 — 클라우드 백로그 크고 증가 중",
+        "AI 추론(인퍼런스) 워크로드가 실사용 단계로 확산",
+        "상당 부분 FCF로 충당 — 과거 버블 대비 자금 건전성↑"
+      ],
+      "bear": [
+        "CapEx +80% vs 매출 +15% 괴리 — 투자회수(ROI) 의문",
+        "아마존 FCF 마이너스 전환 전망, 부채 발행 $400B+ 예상",
+        "전력·데이터센터 반대·금리 등 외생 변수 + 'AI 버블' 논쟁"
+      ]
+    },
+    {
+      "name": "광학·레이저·지향성에너지 (방산)",
+      "tickers": ["LASR"],
+      "sentiment": "중립",
+      "summary": "방산 지향성에너지(레이저 무기) 수요 급증. nLIGHT A&D 제품 +98%, HADES 출시·흑자 전환.",
+      "bull": [
+        "지향성에너지 수요 급증 + 정부·방위 예산의 사이클 안정성",
+        "제품 총마진 44%·EBITDA 흑자로 수익성 개선",
+        "HADES 고출력 레이저·글로벌(이탈리아) 확장"
+      ],
+      "bear": [
+        "소형주 변동성·얇은 수익성(GAAP 영업이익률 ~0%)",
+        "정부 예산·개발계약 진행에 실적이 좌우",
+        "상업용(산업) 레이저 수요는 매크로에 민감"
+      ]
+    }
   ]
 }
 </script>
@@ -1181,6 +1360,7 @@
 <script>
 window.EMBEDDED={manifest:JSON.parse(document.getElementById("__manifest").textContent),content:{}};
 var __e=document.getElementById("__earnings"); if(__e){ try{ window.EMBEDDED.earnings=JSON.parse(__e.textContent); }catch(e){} }
+var __s=document.getElementById("__sectors"); if(__s){ try{ window.EMBEDDED.sectors=JSON.parse(__s.textContent); }catch(e){} }
 document.querySelectorAll('script[type="text/markdown"]').forEach(function(s){window.EMBEDDED.content[s.dataset.file]=s.textContent.replace(/^\n/,"").replace(/\n$/,"");});
 </script>
 
@@ -1434,6 +1614,7 @@ function switchView(v){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('on', b.dataset.view===v));
   document.getElementById('view-reports').classList.toggle('on', v==='reports');
   document.getElementById('view-calendar').classList.toggle('on', v==='calendar');
+  document.getElementById('view-sectors').classList.toggle('on', v==='sectors');
 }
 document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
 
@@ -1475,6 +1656,41 @@ async function loadEarnings(){
   try{ const r=await fetch('reports/earnings.json',{cache:'no-store'}); EARNINGS=await r.json(); }catch(e){ EARNINGS=null; }
 }
 
+/* ===== 섹터 뷰 ===== */
+let SECTORS = null;
+const $secList = document.getElementById('secList');
+const $secNote = document.getElementById('secNote');
+function sentClass(s){ return s==='긍정'?'pos':(s==='부정'?'neg':'neu'); }
+function renderSectors(){
+  if(!SECTORS || !SECTORS.sectors){ $secList.innerHTML='<div class="empty">섹터 데이터를 불러오지 못했습니다.</div>'; return; }
+  $secNote.textContent = '🔭 '+(SECTORS.updated||'')+' 기준 · '+(SECTORS.cycle||'')+' 업데이트 · '+(SECTORS.note||'');
+  $secList.innerHTML = SECTORS.sectors.map(function(s){
+    const tickers=(s.tickers||[]).map(function(t){
+      const rep=REPORTS.find(r=>r.ticker===t && (r.type==='earnings'||!r.type));
+      return rep ? '<span class="sec-tk" data-file="'+esc(rep.file)+'">'+esc(t)+'</span>'
+                 : '<span class="sec-tk" style="cursor:default;opacity:.7">'+esc(t)+'</span>';
+    }).join('');
+    const bull=(s.bull||[]).map(x=>'<li>'+esc(x)+'</li>').join('');
+    const bear=(s.bear||[]).map(x=>'<li>'+esc(x)+'</li>').join('');
+    return '<div class="sec-card"><div class="sec-head">'
+      +'<span class="nm">'+esc(s.name)+'</span>'
+      +'<span class="sent '+sentClass(s.sentiment)+'">'+esc(s.sentiment||'')+'</span>'
+      +'<span class="sec-tickers">'+tickers+'</span></div>'
+      +'<div class="sec-summary">'+esc(s.summary||'')+'</div>'
+      +'<div class="sec-split">'
+      +'<div class="sec-col good"><h4>👍 좋은 뷰</h4><ul>'+bull+'</ul></div>'
+      +'<div class="sec-col bad"><h4>👎 나쁜 뷰</h4><ul>'+bear+'</ul></div>'
+      +'</div></div>';
+  }).join('');
+  [...$secList.querySelectorAll('.sec-tk[data-file]')].forEach(a=>{
+    a.onclick=()=>{ switchView('reports'); const card=[...$list.querySelectorAll('.card')].find(c=>c.dataset.file===a.dataset.file); openReport(a.dataset.file,card,true); };
+  });
+}
+async function loadSectors(){
+  if(window.EMBEDDED && window.EMBEDDED.sectors){ SECTORS=window.EMBEDDED.sectors; return; }
+  try{ const r=await fetch('reports/sectors.json',{cache:'no-store'}); SECTORS=await r.json(); }catch(e){ SECTORS=null; }
+}
+
 (async function init(){
   if(window.EMBEDDED && window.EMBEDDED.manifest){
     REPORTS = window.EMBEDDED.manifest.reports || [];   // 오프라인(dashboard.html) 모드
@@ -1491,6 +1707,8 @@ async function loadEarnings(){
   renderList(REPORTS);
   await loadEarnings();
   renderCalendar();
+  await loadSectors();
+  renderSectors();
   // deep link: #MU
   const tk = decodeURIComponent(location.hash.replace('#','')).toLowerCase();
   if(tk){

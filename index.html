@@ -125,6 +125,25 @@
   .type-badge.preview{color:#a8730b;border-color:#e6c200;background:#fffbe6;}
   .type-badge.review{color:#2563eb;border-color:#9bb8ff;background:#eef3ff;}
   @media (max-width:560px){ .cal-date{display:none;} }
+  /* sector view */
+  .sec-wrap{max-width:1180px;margin:16px auto;padding:0 18px;}
+  .sec-note{color:var(--muted);font-size:12px;margin-bottom:12px;}
+  .sec-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);}
+  .sec-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
+  .sec-head .nm{font-weight:800;font-size:15.5px;}
+  .sec-tickers{display:flex;gap:5px;flex-wrap:wrap;margin-left:auto;}
+  .sec-tk{font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;background:var(--bg);border:1px solid var(--line);color:var(--muted);cursor:pointer;}
+  .sec-summary{color:var(--ink);font-size:13px;margin:9px 0 12px;line-height:1.6;}
+  .sec-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  @media (max-width:640px){ .sec-split{grid-template-columns:1fr;} }
+  .sec-col{border-radius:10px;padding:11px 13px;}
+  .sec-col.good{background:rgba(29,138,91,.08);border:1px solid rgba(29,138,91,.3);}
+  .sec-col.bad{background:rgba(192,57,43,.07);border:1px solid rgba(192,57,43,.28);}
+  .sec-col h4{margin:0 0 7px;font-size:12.5px;}
+  .sec-col.good h4{color:#1d8a5b;} .sec-col.bad h4{color:#c0392b;}
+  .sec-col ul{margin:0;padding-left:1.05em;} .sec-col li{font-size:12.5px;margin:.32em 0;line-height:1.5;}
+  .sent{font-size:10.5px;font-weight:800;padding:2px 9px;border-radius:999px;}
+  .sent.pos{background:#e7f6ee;color:#1d8a5b;} .sent.neu{background:#fdeebf;color:#a8730b;} .sent.neg{background:#fde7e7;color:#c0392b;}
 </style>
 </head>
 <body>
@@ -140,6 +159,7 @@
 <div class="tabs">
   <button class="tab-btn on" data-view="reports">📋 리포트</button>
   <button class="tab-btn" data-view="calendar">📅 실적 캘린더</button>
+  <button class="tab-btn" data-view="sectors">🔭 섹터 뷰</button>
 </div>
 
 <div id="view-reports" class="view on">
@@ -164,6 +184,13 @@
   <div class="cal-wrap">
     <div class="cal-note" id="calNote"></div>
     <div class="cal-list" id="calList"></div>
+  </div>
+</div>
+
+<div id="view-sectors" class="view">
+  <div class="sec-wrap">
+    <div class="sec-note" id="secNote"></div>
+    <div id="secList"></div>
   </div>
 </div>
 
@@ -365,6 +392,7 @@ function switchView(v){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('on', b.dataset.view===v));
   document.getElementById('view-reports').classList.toggle('on', v==='reports');
   document.getElementById('view-calendar').classList.toggle('on', v==='calendar');
+  document.getElementById('view-sectors').classList.toggle('on', v==='sectors');
 }
 document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
 
@@ -406,6 +434,41 @@ async function loadEarnings(){
   try{ const r=await fetch('reports/earnings.json',{cache:'no-store'}); EARNINGS=await r.json(); }catch(e){ EARNINGS=null; }
 }
 
+/* ===== 섹터 뷰 ===== */
+let SECTORS = null;
+const $secList = document.getElementById('secList');
+const $secNote = document.getElementById('secNote');
+function sentClass(s){ return s==='긍정'?'pos':(s==='부정'?'neg':'neu'); }
+function renderSectors(){
+  if(!SECTORS || !SECTORS.sectors){ $secList.innerHTML='<div class="empty">섹터 데이터를 불러오지 못했습니다.</div>'; return; }
+  $secNote.textContent = '🔭 '+(SECTORS.updated||'')+' 기준 · '+(SECTORS.cycle||'')+' 업데이트 · '+(SECTORS.note||'');
+  $secList.innerHTML = SECTORS.sectors.map(function(s){
+    const tickers=(s.tickers||[]).map(function(t){
+      const rep=REPORTS.find(r=>r.ticker===t && (r.type==='earnings'||!r.type));
+      return rep ? '<span class="sec-tk" data-file="'+esc(rep.file)+'">'+esc(t)+'</span>'
+                 : '<span class="sec-tk" style="cursor:default;opacity:.7">'+esc(t)+'</span>';
+    }).join('');
+    const bull=(s.bull||[]).map(x=>'<li>'+esc(x)+'</li>').join('');
+    const bear=(s.bear||[]).map(x=>'<li>'+esc(x)+'</li>').join('');
+    return '<div class="sec-card"><div class="sec-head">'
+      +'<span class="nm">'+esc(s.name)+'</span>'
+      +'<span class="sent '+sentClass(s.sentiment)+'">'+esc(s.sentiment||'')+'</span>'
+      +'<span class="sec-tickers">'+tickers+'</span></div>'
+      +'<div class="sec-summary">'+esc(s.summary||'')+'</div>'
+      +'<div class="sec-split">'
+      +'<div class="sec-col good"><h4>👍 좋은 뷰</h4><ul>'+bull+'</ul></div>'
+      +'<div class="sec-col bad"><h4>👎 나쁜 뷰</h4><ul>'+bear+'</ul></div>'
+      +'</div></div>';
+  }).join('');
+  [...$secList.querySelectorAll('.sec-tk[data-file]')].forEach(a=>{
+    a.onclick=()=>{ switchView('reports'); const card=[...$list.querySelectorAll('.card')].find(c=>c.dataset.file===a.dataset.file); openReport(a.dataset.file,card,true); };
+  });
+}
+async function loadSectors(){
+  if(window.EMBEDDED && window.EMBEDDED.sectors){ SECTORS=window.EMBEDDED.sectors; return; }
+  try{ const r=await fetch('reports/sectors.json',{cache:'no-store'}); SECTORS=await r.json(); }catch(e){ SECTORS=null; }
+}
+
 (async function init(){
   if(window.EMBEDDED && window.EMBEDDED.manifest){
     REPORTS = window.EMBEDDED.manifest.reports || [];   // 오프라인(dashboard.html) 모드
@@ -422,6 +485,8 @@ async function loadEarnings(){
   renderList(REPORTS);
   await loadEarnings();
   renderCalendar();
+  await loadSectors();
+  renderSectors();
   // deep link: #MU
   const tk = decodeURIComponent(location.hash.replace('#','')).toLowerCase();
   if(tk){

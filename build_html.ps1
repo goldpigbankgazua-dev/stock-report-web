@@ -41,9 +41,13 @@ $manifestJson = $manifest | ConvertTo-Json -Depth 6 -Compress
 $earningsRaw = ''
 $earningsPath = Join-Path $reportsDir 'earnings.json'
 if (Test-Path $earningsPath) { $earningsRaw = (Get-Content -Path $earningsPath -Raw -Encoding UTF8) -replace '</script>', '<\/script>' }
+$sectorsRaw = ''
+$sectorsPath = Join-Path $reportsDir 'sectors.json'
+if (Test-Path $sectorsPath) { $sectorsRaw = (Get-Content -Path $sectorsPath -Raw -Encoding UTF8) -replace '</script>', '<\/script>' }
 $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine("<script id=`"__manifest`" type=`"application/json`">$manifestJson</script>")
 if ($earningsRaw) { [void]$sb.AppendLine("<script id=`"__earnings`" type=`"application/json`">$earningsRaw</script>") }
+if ($sectorsRaw)  { [void]$sb.AppendLine("<script id=`"__sectors`" type=`"application/json`">$sectorsRaw</script>") }
 foreach ($r in $manifest.reports) {
   $md = $content[$r.file]
   if ($null -eq $md) { continue }
@@ -55,6 +59,7 @@ foreach ($r in $manifest.reports) {
 [void]$sb.AppendLine('<script>')
 [void]$sb.AppendLine('window.EMBEDDED={manifest:JSON.parse(document.getElementById("__manifest").textContent),content:{}};')
 [void]$sb.AppendLine('var __e=document.getElementById("__earnings"); if(__e){ try{ window.EMBEDDED.earnings=JSON.parse(__e.textContent); }catch(e){} }')
+[void]$sb.AppendLine('var __s=document.getElementById("__sectors"); if(__s){ try{ window.EMBEDDED.sectors=JSON.parse(__s.textContent); }catch(e){} }')
 [void]$sb.AppendLine('document.querySelectorAll(''script[type="text/markdown"]'').forEach(function(s){window.EMBEDDED.content[s.dataset.file]=s.textContent.replace(/^\n/,"").replace(/\n$/,"");});')
 [void]$sb.AppendLine('</script>')
 $embedTag = $sb.ToString()
