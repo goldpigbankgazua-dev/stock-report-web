@@ -52,6 +52,22 @@
       ]
     },
     {
+      "name": "팹리스 (AI 커넥티비티·IP)",
+      "tickers": ["MRVL", "ALAB", "CRDO", "QCOM", "RMBS"],
+      "sentiment": "긍정",
+      "summary": "AI 랙 내부 고속 인터커넥트·커스텀 실리콘·메모리 IP가 핫. Credo AEC +157%, Astera PCIe6, Marvell 커스텀 TAM 상향, Rambus HBM4E IP.",
+      "bull": [
+        "AI 데이터센터 고속 연결(AEC·PCIe6·옵티컬) 수요 폭증 — Credo·Astera 급성장",
+        "Marvell 커스텀 실리콘 'TAM 두 배론'·FY28 매출 $16.5B로 상향",
+        "Rambus HBM4E 컨트롤러 IP 등 메모리 IP가 AI 메모리 붐 수혜"
+      ],
+      "bear": [
+        "고밸류·기대 선반영(특히 ALAB·CRDO) — 호실적에도 차익실현 빈번",
+        "소수 하이퍼스케일러 고객 집중 + 마진 둔화 가이드(ALAB 76→73%)",
+        "QCOM은 스마트폰 의존·애플 모뎀 자체화 등 본업 리스크 상존"
+      ]
+    },
+    {
       "name": "파운드리",
       "tickers": ["TSM"],
       "sentiment": "긍정",
@@ -69,7 +85,7 @@
     },
     {
       "name": "반도체 장비",
-      "tickers": ["ASML", "LRCX", "AMAT", "KLAC"],
+      "tickers": ["ASML", "LRCX", "AMAT", "KLAC", "TER"],
       "sentiment": "중립",
       "summary": "파운드리·메모리 CapEx 증가의 후행 수혜. TSMC $56B·메모리 증설로 선단공정·HBM 장비 수요 견조하나 변동성 큼.",
       "bull": [
@@ -81,6 +97,22 @@
         "중국 매출 비중·수출규제가 핵심 하방 변수",
         "CapEx는 후행·변동성이 커 주문 급감 리스크",
         "메모리·파운드리 사이클이 꺾이면 가장 먼저 둔화"
+      ]
+    },
+    {
+      "name": "전력 반도체",
+      "tickers": ["MPWR", "ON", "NXPI", "NVTS", "STM"],
+      "sentiment": "중립",
+      "summary": "AI 데이터센터 전력공급(800V·고전압 전환)·GaN/SiC가 새 성장축. 전장(자동차) 반도체는 바닥 통과 후 회복 조짐.",
+      "bull": [
+        "AI 데이터센터 전력 수요 급증(NVIDIA 800V 아키텍처) → MPWR·Navitas 수혜",
+        "전장·산업 반도체 재고 소진 후 회복 시작(온세미 자동차 첫 성장 등)",
+        "GaN·SiC 등 차세대 전력반도체 채택 확대"
+      ],
+      "bear": [
+        "자동차·산업 수요는 매크로·재고 사이클에 민감",
+        "범용 영역의 중국 경쟁·가격 압박",
+        "Navitas 등 일부는 적자·소규모로 변동성 매우 큼"
       ]
     },
     {
@@ -129,6 +161,22 @@
         "CapEx +80% vs 매출 +15% 괴리 — 투자회수(ROI) 의문",
         "아마존 FCF 마이너스 전환 전망, 부채 발행 $400B+ 예상",
         "전력·데이터센터 반대·금리 등 외생 변수 + 'AI 버블' 논쟁"
+      ]
+    },
+    {
+      "name": "AI 소프트웨어·데이터·보안",
+      "tickers": ["PLTR", "SNOW", "NOW", "CRWD", "DDOG"],
+      "sentiment": "중립",
+      "summary": "AI 제품의 실매출 전환은 가속(Palantir AIP·Snowflake Cortex·Datadog LLM 관측)되나, 극단적 밸류에이션으로 호실적에도 주가 변동성이 큼.",
+      "bull": [
+        "AI 제품 채택 가속 — Palantir US커머셜 +133%, Datadog 매출 첫 $1B 돌파",
+        "강한 RPO·순매출유지율·FCF 마진 등 SaaS 펀더멘털 견조",
+        "데이터·보안 플랫폼화(Snowflake·CrowdStrike)로 락인 강화"
+      ],
+      "bear": [
+        "극단적 고밸류 → 호실적에도 주가 급락 빈번(NOW −17%, CRWD −11% 등)",
+        "AI 수익화 ROI·지속성에 대한 시장 의문",
+        "매크로 IT 지출 둔화 시 성장률 감속 리스크"
       ]
     },
     {
