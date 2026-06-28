@@ -1,6 +1,96 @@
 {
-    "count":  33,
+    "count":  44,
     "reports":  [
+                    {
+                        "file":  "AMZN_preview_20260731.md",
+                        "ticker":  "AMZN",
+                        "company":  "아마존",
+                        "headline":  "Q2 2026 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-31 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-31",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "QCOM_preview_20260730.md",
+                        "ticker":  "QCOM",
+                        "company":  "퀄컴",
+                        "headline":  "FQ3-26 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-30 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-30",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "MSFT_preview_20260729.md",
+                        "ticker":  "MSFT",
+                        "company":  "마이크로소프트",
+                        "headline":  "FQ4 2026 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-29 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-29",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "LRCX_preview_20260729.md",
+                        "ticker":  "LRCX",
+                        "company":  "램리서치",
+                        "headline":  "FQ4-26 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-29 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-29",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "META_preview_20260729.md",
+                        "ticker":  "META",
+                        "company":  "메타",
+                        "headline":  "Q2 2026 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-29 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-29",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "000660_SK하이닉스_preview_20260724.md",
+                        "ticker":  "000660",
+                        "company":  "SK하이닉스",
+                        "headline":  "2026 2Q 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-24 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "KR",
+                        "date":  "2026-07-24",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "INTC_preview_20260723.md",
+                        "ticker":  "INTC",
+                        "company":  "인텔",
+                        "headline":  "Q2-26 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-23 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-23",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "GOOGL_preview_20260722.md",
+                        "ticker":  "GOOGL",
+                        "company":  "알파벳",
+                        "headline":  "Q2-26 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-22 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-22",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "TXN_preview_20260721.md",
+                        "ticker":  "TXN",
+                        "company":  "Texas Instruments",
+                        "headline":  "Q2 2026 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-21 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-21",
+                        "type":  "preview"
+                    },
                     {
                         "file":  "TSM_preview_20260716.md",
                         "ticker":  "TSM",
@@ -9,6 +99,26 @@
                         "period":  "2026-07-16 실적발표 예정 · 프리뷰(발표 전)",
                         "market":  "US",
                         "date":  "2026-07-16",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "ASML_preview_20260715.md",
+                        "ticker":  "ASML",
+                        "company":  "ASML",
+                        "headline":  "Q2 2026 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-15 실적발표 예정 · 프리뷰(발표 전)",
+                        "market":  "US",
+                        "date":  "2026-07-15",
+                        "type":  "preview"
+                    },
+                    {
+                        "file":  "005930_삼성전자_preview_20260708.md",
+                        "ticker":  "005930",
+                        "company":  "삼성전자",
+                        "headline":  "2026 2Q 실적 프리뷰 — 시장이 보는 기대 vs 우려",
+                        "period":  "2026-07-08 잠정실적 발표 예정 · 프리뷰(발표 전)",
+                        "market":  "KR",
+                        "date":  "2026-07-08",
                         "type":  "preview"
                     },
                     {
@@ -32,111 +142,11 @@
                         "type":  "earnings"
                     },
                     {
-                        "file":  "NXPI_20260628.md",
-                        "ticker":  "NXPI",
-                        "company":  "NXP반도체",
-                        "headline":  "매출 $3.18B로 컨센 상회·전 부문 성장, Q2 가이던스 YoY +14~21%로 가속",
-                        "period":  "Q1 2026 실적 (분기말 2026-03-29 / 2026-04-28 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
                         "file":  "NOW_20260628.md",
                         "ticker":  "NOW",
                         "company":  "서비스나우",
                         "headline":  "매출 $3.77B·cRPO $12.6B(+22.5%), Now Assist AI ACV 목표 $1.5B로 상향",
                         "period":  "Q1 FY26 실적 (분기말 2026-03-31 / 2026-04-22 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "MPWR_20260628.md",
-                        "ticker":  "MPWR",
-                        "company":  "모놀리식파워",
-                        "headline":  "분기 매출 $804M 사상 최대·AI 엔터프라이즈데이터 +98%, Q2 가이던스 $900M 상향",
-                        "period":  "Q1 2026 실적 (분기말 2026-03-31 / 2026-04-30 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "MRVL_20260628.md",
-                        "ticker":  "MRVL",
-                        "company":  "마벨 테크놀로지",
-                        "headline":  "매출 $2.42B 분기 최대, FY28 가이던스 $16.5B로 상향하며 커스텀 실리콘 \u0027두 배론\u0027",
-                        "period":  "FQ1-27 실적 (분기말 2026-05-02 / 2026-05-27 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "MU_20260628.md",
-                        "ticker":  "MU",
-                        "company":  "마이크론",
-                        "headline":  "매출 $41.5B·총마진 84.9% \u0027역대 최고\u0027, 차기 가이던스 $50B로 정점론 정면 반박",
-                        "period":  "FQ3-26 실적 / 2026-06 발표",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "ON_20260628.md",
-                        "ticker":  "ON",
-                        "company":  "온세미",
-                        "headline":  "매출 $1.51B로 가이던스 상회·AI 데이터센터 +30% QoQ, 자동차 7분기만에 첫 성장",
-                        "period":  "Q1 2026 실적 (분기말 2026-04-03 / 2026-05-04 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "STM_20260628.md",
-                        "ticker":  "STM",
-                        "company":  "ST마이크로",
-                        "headline":  "매출 $3.10B로 컨센 상회·YoY +23%, Q2 가이던스 $3.45B·데이터센터 $500M+ 베팅",
-                        "period":  "Q1 2026 실적 (분기말 2026-03-28 / 2026-04 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "TER_20260628.md",
-                        "ticker":  "TER",
-                        "company":  "테라다인",
-                        "headline":  "매출 $1.28B·YoY +87% 폭발 성장, AI 테스트 수요가 매출 70% 차지",
-                        "period":  "Q1-26 실적 (분기말 2026-03-29 / 2026-04-28 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "TSM_20260628.md",
-                        "ticker":  "TSM",
-                        "company":  "TSMC",
-                        "headline":  "매출 $35.9B·총마진 66%, FY26 성장률 \u002730%+\u0027 상향 + CapEx $56B로 AI 캐파 증설",
-                        "period":  "Q1-26 실적 (분기말 2026-03-31 / 2026-04-16 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "SNOW_20260628.md",
-                        "ticker":  "SNOW",
-                        "company":  "스노우플레이크",
-                        "headline":  "제품매출 $1.33B(+34%)·$6B AWS 딜로 \u0027AI 소비\u0027 재가속, 주가 +36%",
-                        "period":  "Q1 FY27 실적 (분기말 2026-04-30 / 2026-05-27 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "PLTR_20260628.md",
-                        "ticker":  "PLTR",
-                        "company":  "팔란티어",
-                        "headline":  "매출 $1.63B·US 커머셜 +133%, FY26 가이던스 $7.66B(+71%)로 또 상향",
-                        "period":  "Q1 FY26 실적 (분기말 2026-03-31 / 2026-05-04 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
@@ -152,6 +162,46 @@
                         "type":  "earnings"
                     },
                     {
+                        "file":  "MU_20260628.md",
+                        "ticker":  "MU",
+                        "company":  "마이크론",
+                        "headline":  "매출 $41.5B·총마진 84.9% \u0027역대 최고\u0027, 차기 가이던스 $50B로 정점론 정면 반박",
+                        "period":  "FQ3-26 실적 / 2026-06 발표",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "TSM_20260628.md",
+                        "ticker":  "TSM",
+                        "company":  "TSMC",
+                        "headline":  "매출 $35.9B·총마진 66%, FY26 성장률 \u002730%+\u0027 상향 + CapEx $56B로 AI 캐파 증설",
+                        "period":  "Q1-26 실적 (분기말 2026-03-31 / 2026-04-16 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "STM_20260628.md",
+                        "ticker":  "STM",
+                        "company":  "ST마이크로",
+                        "headline":  "매출 $3.10B로 컨센 상회·YoY +23%, Q2 가이던스 $3.45B·데이터센터 $500M+ 베팅",
+                        "period":  "Q1 2026 실적 (분기말 2026-03-28 / 2026-04 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "SNOW_20260628.md",
+                        "ticker":  "SNOW",
+                        "company":  "스노우플레이크",
+                        "headline":  "제품매출 $1.33B(+34%)·$6B AWS 딜로 \u0027AI 소비\u0027 재가속, 주가 +36%",
+                        "period":  "Q1 FY27 실적 (분기말 2026-04-30 / 2026-05-27 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
                         "file":  "RMBS_20260628.md",
                         "ticker":  "RMBS",
                         "company":  "램버스",
@@ -162,11 +212,51 @@
                         "type":  "earnings"
                     },
                     {
-                        "file":  "ARM_20260628.md",
-                        "ticker":  "ARM",
-                        "company":  "암",
-                        "headline":  "분기 매출 $1.49B \u0027사상 최대\u0027, 데이터센터 로열티 2배+·AGI CPU 수요 $2B 돌파",
-                        "period":  "FQ4-26 실적 (분기말 2026-03-31 / 2026-05 발표)",
+                        "file":  "PLTR_20260628.md",
+                        "ticker":  "PLTR",
+                        "company":  "팔란티어",
+                        "headline":  "매출 $1.63B·US 커머셜 +133%, FY26 가이던스 $7.66B(+71%)로 또 상향",
+                        "period":  "Q1 FY26 실적 (분기말 2026-03-31 / 2026-05-04 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "TER_20260628.md",
+                        "ticker":  "TER",
+                        "company":  "테라다인",
+                        "headline":  "매출 $1.28B·YoY +87% 폭발 성장, AI 테스트 수요가 매출 70% 차지",
+                        "period":  "Q1-26 실적 (분기말 2026-03-29 / 2026-04-28 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "NXPI_20260628.md",
+                        "ticker":  "NXPI",
+                        "company":  "NXP반도체",
+                        "headline":  "매출 $3.18B로 컨센 상회·전 부문 성장, Q2 가이던스 YoY +14~21%로 가속",
+                        "period":  "Q1 2026 실적 (분기말 2026-03-29 / 2026-04-28 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "ON_20260628.md",
+                        "ticker":  "ON",
+                        "company":  "온세미",
+                        "headline":  "매출 $1.51B로 가이던스 상회·AI 데이터센터 +30% QoQ, 자동차 7분기만에 첫 성장",
+                        "period":  "Q1 2026 실적 (분기말 2026-04-03 / 2026-05-04 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "MRVL_20260628.md",
+                        "ticker":  "MRVL",
+                        "company":  "마벨 테크놀로지",
+                        "headline":  "매출 $2.42B 분기 최대, FY28 가이던스 $16.5B로 상향하며 커스텀 실리콘 \u0027두 배론\u0027",
+                        "period":  "FQ1-27 실적 (분기말 2026-05-02 / 2026-05-27 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
@@ -187,6 +277,26 @@
                         "company":  "브로드컴",
                         "headline":  "AI 반도체 $10.8B(+143%), 차기 $16B 가이드로 \u0027FY27 AI $100B+\u0027 재확인",
                         "period":  "FQ2-26 실적 (분기말 2026-05-03 / 2026-06-03 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "CRDO_20260628.md",
+                        "ticker":  "CRDO",
+                        "company":  "크레도 테크놀로지",
+                        "headline":  "매출 $437M·YoY +157%, AEC가 AI 네트워킹 핵심 부품으로 폭발",
+                        "period":  "FQ4-26 실적 (분기말 2026-05-02 / 2026-06-02 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "ARM_20260628.md",
+                        "ticker":  "ARM",
+                        "company":  "암",
+                        "headline":  "분기 매출 $1.49B \u0027사상 최대\u0027, 데이터센터 로열티 2배+·AGI CPU 수요 $2B 돌파",
+                        "period":  "FQ4-26 실적 (분기말 2026-03-31 / 2026-05 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
@@ -222,11 +332,11 @@
                         "type":  "earnings"
                     },
                     {
-                        "file":  "CRDO_20260628.md",
-                        "ticker":  "CRDO",
-                        "company":  "크레도 테크놀로지",
-                        "headline":  "매출 $437M·YoY +157%, AEC가 AI 네트워킹 핵심 부품으로 폭발",
-                        "period":  "FQ4-26 실적 (분기말 2026-05-02 / 2026-06-02 발표)",
+                        "file":  "MPWR_20260628.md",
+                        "ticker":  "MPWR",
+                        "company":  "모놀리식파워",
+                        "headline":  "분기 매출 $804M 사상 최대·AI 엔터프라이즈데이터 +98%, Q2 가이던스 $900M 상향",
+                        "period":  "Q1 2026 실적 (분기말 2026-03-31 / 2026-04-30 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
@@ -242,21 +352,21 @@
                         "type":  "earnings"
                     },
                     {
-                        "file":  "KLAC_20260628.md",
-                        "ticker":  "KLAC",
-                        "company":  "KLA 코퍼레이션",
-                        "headline":  "매출 $3.42B·총마진 61%로 계측·검사 지배력 과시, WFE $140B 시대 최대 수혜",
-                        "period":  "FQ3-26 실적 (분기말 2026-03-31 / 2026-04 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
                         "file":  "LASR_20260628.md",
                         "ticker":  "LASR",
                         "company":  "엔라이트",
                         "headline":  "매출 $80.2M(+55%)·방산 레이저 급성장, 흑자 전환 + HADES 고출력 레이저 출시",
                         "period":  "Q1-26 실적 (분기말 2026-03-31 / 2026-05 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "KLAC_20260628.md",
+                        "ticker":  "KLAC",
+                        "company":  "KLA 코퍼레이션",
+                        "headline":  "매출 $3.42B·총마진 61%로 계측·검사 지배력 과시, WFE $140B 시대 최대 수혜",
+                        "period":  "FQ3-26 실적 (분기말 2026-03-31 / 2026-04 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
