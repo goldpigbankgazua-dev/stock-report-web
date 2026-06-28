@@ -1,11 +1,11 @@
-# 옐리니 보드 — 매일 자동 리포트 플레이북
+# 옐리 대쉬보드 — 매일 자동 리포트 플레이북
 
 > 이 문서는 매일 아침(한국시간 07:30경) 스케줄로 실행되는 작업 지침이다.
 > 실행 주체(Claude)는 이 저장소(stock-report-web) 안에서 아래 순서대로 수행한다.
 
 ## 목표
 시총 **$100B 이상**의 **반도체 / AI** 기업 중, **그날 주목받는(주가 급등·주요 뉴스)** 종목 **4~5개**를 골라
-8단계 실적 리포트를 생성하고 옐리니 보드(https://goldpigbankgazua-dev.github.io/stock-report-web/)에 배포한다.
+8단계 실적 리포트를 생성하고 옐리 대쉬보드(https://goldpigbankgazua-dev.github.io/stock-report-web/)에 배포한다.
 
 ## 1) 종목 선정 (4~5개)
 - WebSearch로 "오늘/이번 주 반도체·AI 대형주 급등/뉴스"를 조사한다. 예:
@@ -67,12 +67,12 @@ git add .
 git commit -m "daily reports: {YYYY-MM-DD} ({티커들})"
 git push
 ```
-- push되면 1~2분 뒤 옐리니 보드 URL에 자동 반영된다.
+- push되면 1~2분 뒤 옐리 대쉬보드 URL에 자동 반영된다.
 
 ## 5) 텔레그램 알림 (텔레그램 MCP 사용)
 - 텔레그램 MCP 서버(telegram)의 `send-message` 도구로 보낸다. (스키마는 ToolSearch "telegram send-message"로 로드.)
 - chatId **"6996572208"**(개인 DM) 과 **"-5008862799"**(100억프로젝트 그룹) 두 곳에 전송. 한 곳 실패해도 다른 곳은 계속.
-- 메시지 예: `📊 {날짜} 옐리니 보드 새 리포트 N개` + 종목별 한 줄 + `https://goldpigbankgazua-dev.github.io/stock-report-web/`
+- 메시지 예: `📊 {날짜} 옐리 대쉬보드 새 리포트 N개` + 종목별 한 줄 + `https://goldpigbankgazua-dev.github.io/stock-report-web/`
 
 ## 6) 마무리
 - 오늘 생성한 종목/개수, push 결과, 텔레그램 전송 여부를 한 줄로 보고한다.
