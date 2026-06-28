@@ -43,11 +43,10 @@ git push
 ```
 - push되면 1~2분 뒤 옐리니 보드 URL에 자동 반영된다.
 
-## 5) 텔레그램 알림
-- 환경변수 `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_IDS`가 있으면 전송:
-  - 메시지 예: `📊 {날짜} 옐리니 보드 새 리포트 N개\n- NVDA: …\n- AVGO: …\nhttps://goldpigbankgazua-dev.github.io/stock-report-web/`
-  - `send_telegram.ps1`을 쓰거나, curl로 `https://api.telegram.org/bot$TOKEN/sendMessage` 호출.
-- 환경변수가 없으면 알림은 건너뛴다.
+## 5) 텔레그램 알림 (텔레그램 MCP 사용)
+- 텔레그램 MCP 서버(telegram)의 `send-message` 도구로 보낸다. (스키마는 ToolSearch "telegram send-message"로 로드.)
+- chatId **"6996572208"**(개인 DM) 과 **"-5008862799"**(100억프로젝트 그룹) 두 곳에 전송. 한 곳 실패해도 다른 곳은 계속.
+- 메시지 예: `📊 {날짜} 옐리니 보드 새 리포트 N개` + 종목별 한 줄 + `https://goldpigbankgazua-dev.github.io/stock-report-web/`
 
 ## 6) 마무리
 - 오늘 생성한 종목/개수, push 결과, 텔레그램 전송 여부를 한 줄로 보고한다.
