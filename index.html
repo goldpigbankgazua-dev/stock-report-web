@@ -100,6 +100,10 @@
     color:var(--muted);font-weight:800;font-size:13.5px;cursor:pointer;}
   .tab-btn.on{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);}
   .view{display:none;} .view.on{display:block;}
+  .filters{display:flex;gap:6px;margin-bottom:10px;flex-wrap:wrap;}
+  .fchip{padding:5px 11px;border:1px solid var(--line);border-radius:999px;background:var(--panel);
+    color:var(--muted);font-weight:700;font-size:12px;cursor:pointer;}
+  .fchip.on{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);}
   .cal-wrap{max-width:1180px;margin:16px auto;padding:0 18px;}
   .cal-note{color:var(--muted);font-size:12px;margin-bottom:12px;}
   .cal-list{display:flex;flex-direction:column;gap:9px;}
@@ -141,6 +145,12 @@
 <div id="view-reports" class="view on">
 <div class="wrap">
   <aside>
+    <div class="filters" id="filters">
+      <button class="fchip on" data-type="all">전체</button>
+      <button class="fchip" data-type="earnings">실적</button>
+      <button class="fchip" data-type="preview">프리뷰</button>
+      <button class="fchip" data-type="review">리뷰</button>
+    </div>
     <div class="count" id="count"></div>
     <div class="list" id="list"></div>
   </aside>
@@ -236,23 +246,34 @@ async function openReport(file, cardEl, scroll){
   }
 }
 
+let typeFilter = 'all';
 function applyFilter(){
   const q = $search.value.trim().toLowerCase();
-  if(!q){ renderList(REPORTS); return; }
-  const f = REPORTS.filter(r=>
+  let f = REPORTS;
+  if(typeFilter !== 'all') f = f.filter(r => (r.type||'earnings') === typeFilter);
+  if(q) f = f.filter(r =>
     (r.ticker||'').toLowerCase().includes(q) ||
     (r.company||'').toLowerCase().includes(q) ||
     (r.headline||'').toLowerCase().includes(q));
-  if(f.length){ renderList(f); }
-  else{
-    $count.textContent = '0개 리포트';
+  if(f.length){ renderList(f); return; }
+  // 결과 없음
+  $count.textContent = '0개 리포트';
+  if(q){
     $list.innerHTML = `<div class="empty" style="padding:28px 10px">
       '<b>${esc($search.value.trim())}</b>' 리포트가 아직 없어요.<br><br>
       Claude Code에서<br><code>/stock-report ${esc($search.value.trim())}</code><br>로 생성한 뒤 push 하세요.</div>`;
+  } else {
+    const label = {earnings:'실적', preview:'프리뷰', review:'리뷰'}[typeFilter] || '';
+    $list.innerHTML = `<div class="empty" style="padding:28px 10px">'${label}' 분류의 리포트가 아직 없어요.</div>`;
   }
 }
 
 $search.addEventListener('input', applyFilter);
+document.querySelectorAll('.fchip').forEach(c => c.addEventListener('click', ()=>{
+  typeFilter = c.dataset.type;
+  document.querySelectorAll('.fchip').forEach(x => x.classList.toggle('on', x===c));
+  applyFilter();
+}));
 
 /* ===== 투자 메모 ===== */
 const MEMO_NS = 'yellini.memo.';

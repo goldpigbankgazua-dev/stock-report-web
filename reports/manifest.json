@@ -1,5 +1,5 @@
 {
-    "count":  12,
+    "count":  13,
     "reports":  [
                     {
                         "file":  "TSM_preview_20260716.md",
@@ -12,21 +12,11 @@
                         "type":  "preview"
                     },
                     {
-                        "file":  "NVDA_20260628.md",
-                        "ticker":  "NVDA",
-                        "company":  "엔비디아",
-                        "headline":  "매출 $81.6B·데이터센터 $75B, 차기 가이던스 $91B로 \u0027AI 정점론\u0027 또 반박",
-                        "period":  "FQ1-27 실적 (분기말 2026-04-26 / 2026-05-20 발표)",
-                        "market":  "US",
-                        "date":  "2026-06-28",
-                        "type":  "earnings"
-                    },
-                    {
-                        "file":  "LASR_20260628.md",
-                        "ticker":  "LASR",
-                        "company":  "엔라이트",
-                        "headline":  "매출 $80.2M(+55%)·방산 레이저 급성장, 흑자 전환 + HADES 고출력 레이저 출시",
-                        "period":  "Q1-26 실적 (분기말 2026-03-31 / 2026-05 발표)",
+                        "file":  "AVGO_20260628.md",
+                        "ticker":  "AVGO",
+                        "company":  "브로드컴",
+                        "headline":  "AI 반도체 $10.8B(+143%), 차기 $16B 가이드로 \u0027FY27 AI $100B+\u0027 재확인",
+                        "period":  "FQ2-26 실적 (분기말 2026-05-03 / 2026-06-03 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
@@ -42,11 +32,21 @@
                         "type":  "earnings"
                     },
                     {
-                        "file":  "AVGO_20260628.md",
-                        "ticker":  "AVGO",
-                        "company":  "브로드컴",
-                        "headline":  "AI 반도체 $10.8B(+143%), 차기 $16B 가이드로 \u0027FY27 AI $100B+\u0027 재확인",
-                        "period":  "FQ2-26 실적 (분기말 2026-05-03 / 2026-06-03 발표)",
+                        "file":  "LASR_20260628.md",
+                        "ticker":  "LASR",
+                        "company":  "엔라이트",
+                        "headline":  "매출 $80.2M(+55%)·방산 레이저 급성장, 흑자 전환 + HADES 고출력 레이저 출시",
+                        "period":  "Q1-26 실적 (분기말 2026-03-31 / 2026-05 발표)",
+                        "market":  "US",
+                        "date":  "2026-06-28",
+                        "type":  "earnings"
+                    },
+                    {
+                        "file":  "ARM_20260628.md",
+                        "ticker":  "ARM",
+                        "company":  "암",
+                        "headline":  "분기 매출 $1.49B \u0027사상 최대\u0027, 데이터센터 로열티 2배+·AGI CPU 수요 $2B 돌파",
+                        "period":  "FQ4-26 실적 (분기말 2026-03-31 / 2026-05 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
@@ -72,11 +72,11 @@
                         "type":  "earnings"
                     },
                     {
-                        "file":  "ARM_20260628.md",
-                        "ticker":  "ARM",
-                        "company":  "암",
-                        "headline":  "분기 매출 $1.49B \u0027사상 최대\u0027, 데이터센터 로열티 2배+·AGI CPU 수요 $2B 돌파",
-                        "period":  "FQ4-26 실적 (분기말 2026-03-31 / 2026-05 발표)",
+                        "file":  "NVDA_20260628.md",
+                        "ticker":  "NVDA",
+                        "company":  "엔비디아",
+                        "headline":  "매출 $81.6B·데이터센터 $75B, 차기 가이던스 $91B로 \u0027AI 정점론\u0027 또 반박",
+                        "period":  "FQ1-27 실적 (분기말 2026-04-26 / 2026-05-20 발표)",
                         "market":  "US",
                         "date":  "2026-06-28",
                         "type":  "earnings"
@@ -90,6 +90,16 @@
                         "market":  "US",
                         "date":  "2026-05-07",
                         "type":  "earnings"
+                    },
+                    {
+                        "file":  "AMD_review_20260505.md",
+                        "ticker":  "AMD",
+                        "company":  "AMD",
+                        "headline":  "Q1-26 실적 리뷰 — 발표 후 무엇이 바뀌었나 (주가 +16%)",
+                        "period":  "2026-05-05 발표 · 리뷰(발표 후)",
+                        "market":  "US",
+                        "date":  "2026-05-05",
+                        "type":  "review"
                     },
                     {
                         "file":  "005930_삼성전자_20260430.md",
