@@ -37,8 +37,13 @@ foreach ($r in $manifest.reports) {
 # - each report: embed RAW markdown inside a <script type="text/markdown"> block
 #   (script content is raw text; only "</script>" must be neutralized)
 $manifestJson = $manifest | ConvertTo-Json -Depth 6 -Compress
+# earnings.json (실적 캘린더) — 있으면 그대로 임베드
+$earningsRaw = ''
+$earningsPath = Join-Path $reportsDir 'earnings.json'
+if (Test-Path $earningsPath) { $earningsRaw = (Get-Content -Path $earningsPath -Raw -Encoding UTF8) -replace '</script>', '<\/script>' }
 $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine("<script id=`"__manifest`" type=`"application/json`">$manifestJson</script>")
+if ($earningsRaw) { [void]$sb.AppendLine("<script id=`"__earnings`" type=`"application/json`">$earningsRaw</script>") }
 foreach ($r in $manifest.reports) {
   $md = $content[$r.file]
   if ($null -eq $md) { continue }
@@ -49,6 +54,7 @@ foreach ($r in $manifest.reports) {
 }
 [void]$sb.AppendLine('<script>')
 [void]$sb.AppendLine('window.EMBEDDED={manifest:JSON.parse(document.getElementById("__manifest").textContent),content:{}};')
+[void]$sb.AppendLine('var __e=document.getElementById("__earnings"); if(__e){ try{ window.EMBEDDED.earnings=JSON.parse(__e.textContent); }catch(e){} }')
 [void]$sb.AppendLine('document.querySelectorAll(''script[type="text/markdown"]'').forEach(function(s){window.EMBEDDED.content[s.dataset.file]=s.textContent.replace(/^\n/,"").replace(/\n$/,"");});')
 [void]$sb.AppendLine('</script>')
 $embedTag = $sb.ToString()

@@ -94,6 +94,33 @@
   .memo-ta:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft);}
   .memo-ta:disabled{opacity:.5;}
   .memo-status{font-size:11.5px;color:var(--muted);min-height:15px;}
+  /* tabs + calendar */
+  .tabs{display:flex;gap:8px;max-width:1180px;margin:14px auto 0;padding:0 18px;}
+  .tab-btn{padding:9px 16px;border:1px solid var(--line);border-radius:10px;background:var(--panel);
+    color:var(--muted);font-weight:800;font-size:13.5px;cursor:pointer;}
+  .tab-btn.on{background:var(--accent-soft);color:var(--accent);border-color:var(--accent);}
+  .view{display:none;} .view.on{display:block;}
+  .cal-wrap{max-width:1180px;margin:16px auto;padding:0 18px;}
+  .cal-note{color:var(--muted);font-size:12px;margin-bottom:12px;}
+  .cal-list{display:flex;flex-direction:column;gap:9px;}
+  .cal-row{display:flex;align-items:center;gap:14px;background:var(--panel);border:1px solid var(--line);
+    border-radius:12px;padding:13px 16px;box-shadow:var(--shadow);}
+  .cal-row.soon{border-color:var(--accent);box-shadow:0 0 0 2px var(--accent-soft);}
+  .cal-dday{flex:none;min-width:62px;text-align:center;font-weight:800;font-size:16px;color:var(--accent);}
+  .cal-main{flex:1;min-width:0;}
+  .cal-main .nm{font-weight:800;font-size:15px;display:flex;align-items:center;gap:7px;flex-wrap:wrap;}
+  .cal-main .sub{color:var(--muted);font-size:12px;margin-top:3px;}
+  .cal-date{flex:none;text-align:right;font-size:12.5px;color:var(--muted);white-space:nowrap;}
+  .chip{font-size:10px;font-weight:700;padding:2px 7px;border-radius:999px;}
+  .chip.confirmed{background:#e7f6ee;color:#1d8a5b;} .chip.tentative{background:#fdeebf;color:#a8730b;}
+  .cal-links{display:flex;gap:6px;margin-top:7px;flex-wrap:wrap;}
+  .cal-link{font-size:11.5px;font-weight:700;padding:3px 9px;border-radius:7px;border:1px solid var(--accent);
+    color:var(--accent);background:var(--accent-soft);cursor:pointer;}
+  .cal-link.disabled{border-color:var(--line);color:var(--muted);background:var(--bg);cursor:default;}
+  .type-badge{font-size:10px;font-weight:800;padding:1px 6px;border-radius:5px;border:1px solid var(--line);color:var(--muted);}
+  .type-badge.preview{color:#a8730b;border-color:#e6c200;background:#fffbe6;}
+  .type-badge.review{color:#2563eb;border-color:#9bb8ff;background:#eef3ff;}
+  @media (max-width:560px){ .cal-date{display:none;} }
 </style>
 </head>
 <body>
@@ -106,6 +133,12 @@
   <button id="memoBtn" class="memo-btn" title="투자 메모 (Alt+M)">📝 메모</button>
 </header>
 
+<div class="tabs">
+  <button class="tab-btn on" data-view="reports">📋 리포트</button>
+  <button class="tab-btn" data-view="calendar">📅 실적 캘린더</button>
+</div>
+
+<div id="view-reports" class="view on">
 <div class="wrap">
   <aside>
     <div class="count" id="count"></div>
@@ -114,6 +147,14 @@
   <main class="report" id="report">
     <div class="empty">왼쪽에서 리포트를 선택하세요.</div>
   </main>
+</div>
+</div><!-- /view-reports -->
+
+<div id="view-calendar" class="view">
+  <div class="cal-wrap">
+    <div class="cal-note" id="calNote"></div>
+    <div class="cal-list" id="calList"></div>
+  </div>
 </div>
 
 <footer>정적 대시보드 · 새 종목은 Claude Code에서 <code>/stock-report &lt;티커&gt;</code> 로 생성 후 push</footer>
@@ -158,6 +199,7 @@ function renderList(items){
       <div class="top">
         <span class="tk">${esc(r.ticker||'')}</span>
         <span class="badge ${r.market==='KR'?'KR':'US'}">${r.market==='KR'?'KR':'US'}</span>
+        ${r.type==='preview'?'<span class="type-badge preview">프리뷰</span>':r.type==='review'?'<span class="type-badge review">리뷰</span>':''}
       </div>
       <div class="co">${esc(r.company||'')}</div>
       <div class="hl">${esc(r.headline||'')}</div>
@@ -293,6 +335,56 @@ document.addEventListener('keydown',e=>{
     $drawer.classList.contains('open')?closeDrawer():openDrawer(); }
 });
 
+/* ===== 탭 + 실적 캘린더 ===== */
+let EARNINGS = null;
+const $calList = document.getElementById('calList');
+const $calNote = document.getElementById('calNote');
+
+function switchView(v){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('on', b.dataset.view===v));
+  document.getElementById('view-reports').classList.toggle('on', v==='reports');
+  document.getElementById('view-calendar').classList.toggle('on', v==='calendar');
+}
+document.querySelectorAll('.tab-btn').forEach(b=>b.addEventListener('click',()=>switchView(b.dataset.view)));
+
+function dday(dateStr){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const d=new Date(dateStr+'T00:00:00');
+  const diff=Math.round((d-today)/86400000);
+  if(diff===0) return 'D-DAY';
+  return diff>0 ? ('D-'+diff) : ('D+'+(-diff));
+}
+function findReport(ticker,type){ return REPORTS.find(r=>r.ticker===ticker && r.type===type); }
+
+function renderCalendar(){
+  if(!EARNINGS || !EARNINGS.events){ $calList.innerHTML='<div class="empty">일정 데이터를 불러오지 못했습니다.</div>'; return; }
+  $calNote.textContent = '📅 '+(EARNINGS.updated||'')+' 기준 · '+(EARNINGS.note||'');
+  const evs = EARNINGS.events.slice().sort((a,b)=> a.date<b.date?-1:(a.date>b.date?1:0));
+  $calList.innerHTML = evs.map(function(e){
+    const dd=dday(e.date);
+    const soon=/^D-[0-3]$|^D-DAY$/.test(dd);
+    const pv=findReport(e.ticker,'preview'), rv=findReport(e.ticker,'review');
+    const conf=e.confirmed?'<span class="chip confirmed">확정</span>':'<span class="chip tentative">예정</span>';
+    let links='';
+    links += pv?('<span class="cal-link" data-file="'+esc(pv.file)+'">📝 프리뷰</span>'):'<span class="cal-link disabled">프리뷰 D-3 예정</span>';
+    links += rv?('<span class="cal-link" data-file="'+esc(rv.file)+'">📊 리뷰</span>'):'<span class="cal-link disabled">리뷰 D+1 예정</span>';
+    return '<div class="cal-row'+(soon?' soon':'')+'">'
+      +'<div class="cal-dday">'+dd+'</div>'
+      +'<div class="cal-main"><div class="nm">'+esc(e.ticker)+' <span class="badge '+(e.market==='KR'?'KR':'US')+'">'+(e.market==='KR'?'KR':'US')+'</span> '+conf+'</div>'
+      +'<div class="sub">'+esc(e.company||'')+' · '+esc(e.quarter||'')+'</div>'
+      +'<div class="cal-links">'+links+'</div></div>'
+      +'<div class="cal-date">'+esc(e.date)+'</div></div>';
+  }).join('');
+  [...$calList.querySelectorAll('.cal-link[data-file]')].forEach(a=>{
+    a.onclick=()=>{ switchView('reports'); const card=[...$list.querySelectorAll('.card')].find(c=>c.dataset.file===a.dataset.file); openReport(a.dataset.file,card,true); };
+  });
+}
+
+async function loadEarnings(){
+  if(window.EMBEDDED && window.EMBEDDED.earnings){ EARNINGS=window.EMBEDDED.earnings; return; }
+  try{ const r=await fetch('reports/earnings.json',{cache:'no-store'}); EARNINGS=await r.json(); }catch(e){ EARNINGS=null; }
+}
+
 (async function init(){
   if(window.EMBEDDED && window.EMBEDDED.manifest){
     REPORTS = window.EMBEDDED.manifest.reports || [];   // 오프라인(dashboard.html) 모드
@@ -307,6 +399,8 @@ document.addEventListener('keydown',e=>{
     }
   }
   renderList(REPORTS);
+  await loadEarnings();
+  renderCalendar();
   // deep link: #MU
   const tk = decodeURIComponent(location.hash.replace('#','')).toLowerCase();
   if(tk){

@@ -44,6 +44,10 @@ foreach ($f in (Get-ChildItem -Path $reportsDir -Filter '*.md' | Sort-Object Nam
   $market  = if ($ticker -match '^\d{6}$') { 'KR' } else { 'US' }
   $dateFmt = if ($date.Length -eq 8) { "$($date.Substring(0,4))-$($date.Substring(4,2))-$($date.Substring(6,2))" } else { '' }
 
+  $type = 'earnings'
+  if ($base -match '_preview_') { $type = 'preview' }
+  elseif ($base -match '_review_') { $type = 'review' }
+
   $items += [pscustomobject]@{
     file     = $f.Name
     ticker   = $ticker
@@ -52,6 +56,7 @@ foreach ($f in (Get-ChildItem -Path $reportsDir -Filter '*.md' | Sort-Object Nam
     period   = $period
     market   = $market
     date     = $dateFmt
+    type     = $type
   }
 }
 
