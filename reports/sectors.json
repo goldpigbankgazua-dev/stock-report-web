@@ -133,9 +133,9 @@
     },
     {
       "name": "AI 데이터센터·뉴클라우드",
-      "tickers": ["IREN"],
+      "tickers": ["NBIS", "CRWV", "IREN"],
       "sentiment": "중립",
-      "summary": "전력 확보된 데이터센터의 희소가치에 베팅. 계약 ARR $3.1B, MS $9.7B·NVDA $3.4B 계약이나 현재는 적자.",
+      "summary": "AI GPU 클라우드(뉴클라우드) 급성장. CoreWeave 백로그 $99.4B, Nebius 매출 +684%, IREN 계약 ARR $3.1B — 매출은 폭증하나 대규모 CapEx·적자·희석이 공통 리스크.",
       "bull": [
         "전력·부지 확보가 AI 인프라 최대 병목 — 희소 자산 보유",
         "MS·NVIDIA 앵커 계약 + GPU 15만 장 규모 확보",
@@ -149,7 +149,7 @@
     },
     {
       "name": "하이퍼스케일러 (클라우드 AI CapEx)",
-      "tickers": ["MSFT", "GOOGL", "AMZN", "META"],
+      "tickers": ["MSFT", "GOOGL", "AMZN", "META", "ORCL"],
       "sentiment": "긍정",
       "summary": "2026 5대 업체 CapEx $660~690B(전년 2배)로 사상 최대 투자 사이클. 수요가 공급을 초과(supply-constrained)하나 ROI 논쟁 상존.",
       "bull": [

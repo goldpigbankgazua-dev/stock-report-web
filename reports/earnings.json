@@ -13,6 +13,10 @@
     { "ticker": "MSFT",   "company": "마이크로소프트",    "market": "US", "date": "2026-07-29", "quarter": "FQ4 2026",     "confirmed": false },
     { "ticker": "META",   "company": "메타",            "market": "US", "date": "2026-07-29", "quarter": "Q2 2026",      "confirmed": false },
     { "ticker": "QCOM",   "company": "퀄컴",            "market": "US", "date": "2026-07-30", "quarter": "FQ3 2026",     "confirmed": false },
-    { "ticker": "AMZN",   "company": "아마존",          "market": "US", "date": "2026-07-31", "quarter": "Q2 2026",      "confirmed": false }
+    { "ticker": "AMZN",   "company": "아마존",          "market": "US", "date": "2026-07-31", "quarter": "Q2 2026",      "confirmed": false },
+    { "ticker": "NBIS",   "company": "네비우스",        "market": "US", "date": "2026-08-06", "quarter": "Q2 2026",      "confirmed": false },
+    { "ticker": "CRWV",   "company": "코어위브",        "market": "US", "date": "2026-08-18", "quarter": "Q2 2026",      "confirmed": false },
+    { "ticker": "IREN",   "company": "아이렌",          "market": "US", "date": "2026-08-28", "quarter": "FQ4 2026",     "confirmed": false },
+    { "ticker": "ORCL",   "company": "오라클",          "market": "US", "date": "2026-09-08", "quarter": "FQ1 2027",     "confirmed": false }
   ]
 }
