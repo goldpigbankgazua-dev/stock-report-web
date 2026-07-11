@@ -48,6 +48,25 @@ $sb = New-Object System.Text.StringBuilder
 [void]$sb.AppendLine("<script id=`"__manifest`" type=`"application/json`">$manifestJson</script>")
 if ($earningsRaw) { [void]$sb.AppendLine("<script id=`"__earnings`" type=`"application/json`">$earningsRaw</script>") }
 if ($sectorsRaw)  { [void]$sb.AppendLine("<script id=`"__sectors`" type=`"application/json`">$sectorsRaw</script>") }
+
+# 섹터 뷰 날짜별 히스토리: 스냅샷 임베드 + sectors-index.json 생성
+$histDir = Join-Path $reportsDir 'sectors-history'
+$histDates = @()
+if (Test-Path $histDir) {
+  foreach ($hf in (Get-ChildItem -Path $histDir -Filter 'sectors_*.json' | Sort-Object Name)) {
+    if ($hf.BaseName -match 'sectors_(\d{8})$') {
+      $d = $Matches[1]
+      $dateFmt = "$($d.Substring(0,4))-$($d.Substring(4,2))-$($d.Substring(6,2))"
+      $histDates += $dateFmt
+      $hraw = (Get-Content -Path $hf.FullName -Raw -Encoding UTF8) -replace '</script>', '<\/script>'
+      [void]$sb.AppendLine("<script type=`"application/json`" class=`"__sectorhist`" data-date=`"$dateFmt`">$hraw</script>")
+    }
+  }
+}
+$histSorted = @($histDates | Sort-Object -Descending)
+$idxJson = ([pscustomobject]@{ dates = $histSorted } | ConvertTo-Json -Compress)
+[System.IO.File]::WriteAllText((Join-Path $reportsDir 'sectors-index.json'), $idxJson, (New-Object System.Text.UTF8Encoding($false)))
+[void]$sb.AppendLine("<script id=`"__sectorsindex`" type=`"application/json`">$idxJson</script>")
 foreach ($r in $manifest.reports) {
   $md = $content[$r.file]
   if ($null -eq $md) { continue }
@@ -60,6 +79,8 @@ foreach ($r in $manifest.reports) {
 [void]$sb.AppendLine('window.EMBEDDED={manifest:JSON.parse(document.getElementById("__manifest").textContent),content:{}};')
 [void]$sb.AppendLine('var __e=document.getElementById("__earnings"); if(__e){ try{ window.EMBEDDED.earnings=JSON.parse(__e.textContent); }catch(e){} }')
 [void]$sb.AppendLine('var __s=document.getElementById("__sectors"); if(__s){ try{ window.EMBEDDED.sectors=JSON.parse(__s.textContent); }catch(e){} }')
+[void]$sb.AppendLine('var __si=document.getElementById("__sectorsindex"); if(__si){ try{ window.EMBEDDED.sectorsIndex=JSON.parse(__si.textContent); }catch(e){} }')
+[void]$sb.AppendLine('window.EMBEDDED.sectorsHistory={}; document.querySelectorAll("script.__sectorhist").forEach(function(h){ try{ window.EMBEDDED.sectorsHistory[h.dataset.date]=JSON.parse(h.textContent); }catch(e){} });')
 [void]$sb.AppendLine('document.querySelectorAll(''script[type="text/markdown"]'').forEach(function(s){window.EMBEDDED.content[s.dataset.file]=s.textContent.replace(/^\n/,"").replace(/\n$/,"");});')
 [void]$sb.AppendLine('</script>')
 $embedTag = $sb.ToString()

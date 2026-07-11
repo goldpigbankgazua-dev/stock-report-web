@@ -127,7 +127,10 @@
   @media (max-width:560px){ .cal-date{display:none;} }
   /* sector view */
   .sec-wrap{max-width:1180px;margin:16px auto;padding:0 18px;}
-  .sec-note{color:var(--muted);font-size:12px;margin-bottom:12px;}
+  .sec-bar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .sec-note{color:var(--muted);font-size:12px;}
+  .sec-date-sel{margin-left:auto;padding:6px 10px;border:1px solid var(--accent);border-radius:8px;
+    background:var(--accent-soft);color:var(--accent);font-size:12.5px;font-weight:800;cursor:pointer;}
   .sec-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);}
   .sec-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
   .sec-head .nm{font-weight:800;font-size:15.5px;}
@@ -189,7 +192,10 @@
 
 <div id="view-sectors" class="view">
   <div class="sec-wrap">
-    <div class="sec-note" id="secNote"></div>
+    <div class="sec-bar">
+      <div class="sec-note" id="secNote"></div>
+      <select id="secDate" class="sec-date-sel" style="display:none"></select>
+    </div>
     <div id="secList"></div>
   </div>
 </div>
@@ -435,11 +441,13 @@ async function loadEarnings(){
 }
 
 /* ===== 섹터 뷰 ===== */
-let SECTORS = null;
+let SECTORS = null, SECTORS_INDEX = null;
 const $secList = document.getElementById('secList');
 const $secNote = document.getElementById('secNote');
+const $secDate = document.getElementById('secDate');
 function sentClass(s){ return s==='긍정'?'pos':(s==='부정'?'neg':'neu'); }
-function renderSectors(){
+function renderSectors(){ renderSectorsData(SECTORS); }
+function renderSectorsData(SECTORS){
   if(!SECTORS || !SECTORS.sectors){ $secList.innerHTML='<div class="empty">섹터 데이터를 불러오지 못했습니다.</div>'; return; }
   $secNote.textContent = '🔭 '+(SECTORS.updated||'')+' 기준 · '+(SECTORS.cycle||'')+' 업데이트 · '+(SECTORS.note||'');
   $secList.innerHTML = SECTORS.sectors.map(function(s){
@@ -464,9 +472,27 @@ function renderSectors(){
     a.onclick=()=>{ switchView('reports'); const card=[...$list.querySelectorAll('.card')].find(c=>c.dataset.file===a.dataset.file); openReport(a.dataset.file,card,true); };
   });
 }
+async function loadSectorSnapshot(date){
+  if(window.EMBEDDED && window.EMBEDDED.sectorsHistory && window.EMBEDDED.sectorsHistory[date]) return window.EMBEDDED.sectorsHistory[date];
+  try{ const r=await fetch('reports/sectors-history/sectors_'+date.replace(/-/g,'')+'.json',{cache:'no-store'}); return await r.json(); }catch(e){ return null; }
+}
+function populateSecDates(){
+  const dates=(SECTORS_INDEX&&SECTORS_INDEX.dates)?SECTORS_INDEX.dates:[];
+  if(dates.length<=1){ $secDate.style.display='none'; return; }   // 과거 스냅샷이 2개 이상일 때만 노출
+  $secDate.innerHTML=dates.map((d,i)=>'<option value="'+d+'">'+d+(i===0?' (최신)':'')+'</option>').join('');
+  $secDate.style.display='';
+  $secDate.onchange=async ()=>{
+    const d=$secDate.value;
+    if(d===dates[0]){ renderSectorsData(SECTORS); return; }
+    const snap=await loadSectorSnapshot(d);
+    renderSectorsData(snap||SECTORS);
+  };
+}
 async function loadSectors(){
-  if(window.EMBEDDED && window.EMBEDDED.sectors){ SECTORS=window.EMBEDDED.sectors; return; }
-  try{ const r=await fetch('reports/sectors.json',{cache:'no-store'}); SECTORS=await r.json(); }catch(e){ SECTORS=null; }
+  if(window.EMBEDDED && window.EMBEDDED.sectors){ SECTORS=window.EMBEDDED.sectors; }
+  else { try{ const r=await fetch('reports/sectors.json',{cache:'no-store'}); SECTORS=await r.json(); }catch(e){ SECTORS=null; } }
+  if(window.EMBEDDED && window.EMBEDDED.sectorsIndex){ SECTORS_INDEX=window.EMBEDDED.sectorsIndex; }
+  else { try{ const r=await fetch('reports/sectors-index.json',{cache:'no-store'}); SECTORS_INDEX=await r.json(); }catch(e){ SECTORS_INDEX=null; } }
 }
 
 (async function init(){
@@ -487,6 +513,7 @@ async function loadSectors(){
   renderCalendar();
   await loadSectors();
   renderSectors();
+  populateSecDates();
   // deep link: #MU
   const tk = decodeURIComponent(location.hash.replace('#','')).toLowerCase();
   if(tk){

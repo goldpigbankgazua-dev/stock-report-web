@@ -127,7 +127,10 @@
   @media (max-width:560px){ .cal-date{display:none;} }
   /* sector view */
   .sec-wrap{max-width:1180px;margin:16px auto;padding:0 18px;}
-  .sec-note{color:var(--muted);font-size:12px;margin-bottom:12px;}
+  .sec-bar{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap;}
+  .sec-note{color:var(--muted);font-size:12px;}
+  .sec-date-sel{margin-left:auto;padding:6px 10px;border:1px solid var(--accent);border-radius:8px;
+    background:var(--accent-soft);color:var(--accent);font-size:12.5px;font-weight:800;cursor:pointer;}
   .sec-card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin-bottom:12px;box-shadow:var(--shadow);}
   .sec-head{display:flex;align-items:center;gap:9px;flex-wrap:wrap;}
   .sec-head .nm{font-weight:800;font-size:15.5px;}
@@ -189,7 +192,10 @@
 
 <div id="view-sectors" class="view">
   <div class="sec-wrap">
-    <div class="sec-note" id="secNote"></div>
+    <div class="sec-bar">
+      <div class="sec-note" id="secNote"></div>
+      <select id="secDate" class="sec-date-sel" style="display:none"></select>
+    </div>
     <div id="secList"></div>
   </div>
 </div>
@@ -238,8 +244,208 @@
 }
 </script>
 <script id="__sectors" type="application/json">{
-  "updated": "2026-06-28",
+  "updated": "2026-07-11",
   "cycle": "10일 주기",
+  "note": "공개 자료 기반 시장 시각 요약(자동 생성). 투자 권유 아님.",
+  "sectors": [
+    {
+      "name": "메모리 (DRAM·HBM·NAND)",
+      "tickers": ["MU", "005930", "000660", "SNDK"],
+      "sentiment": "긍정",
+      "summary": "AI가 견인하는 메모리 슈퍼사이클 지속. 2026 HBM 시장 $54.6B(+58%, BofA), HBM3E→HBM4 전환 진행. DRAM 가격은 2025초 대비 약 2배로 뛰며 일반 DRAM까지 품귀. 업계 이익 피크는 2027 4Q 이전엔 도래하지 않는다는 시각.",
+      "bull": [
+        "수요 주도형 사이클 — AI 워크로드가 구조적으로 메모리 폭증 유발(HBM이 DRAM 웨이퍼 23% 잠식)",
+        "2026 HBM $54.6B(+58%)·커스텀 ASIC용 HBM 수요 +82%(골드만) — 가격 가시성↑",
+        "트로프 재고·YoY 가격 피크·주가 변곡 3요건 미충족 → 이익 피크 2027 4Q 이후로 이연 시각"
+      ],
+      "bear": [
+        "HBM 가격은 2026 이후 경쟁·증설로 조정, 2027 이후 오버서플라이 리스크(추정)",
+        "메모리세(memory tax)로 스마트폰 -12.9%·PC -11.3% 출하 위축 → 후방 수요 훼손",
+        "포워드 추정이 '사이클 불멸' 가정 — AI capex·가격 균열 시 실적·멀티플 동반 붕괴"
+      ]
+    },
+    {
+      "name": "AI 가속기 GPU",
+      "tickers": ["NVDA", "AMD"],
+      "sentiment": "긍정",
+      "summary": "데이터센터 GPU 수요 지속. 엔비디아 FY26 DC 매출 $193.7B·AI가속기 점유 ~80%, AMD는 MI350X/MI450로 5~7% 점유 추격. 다만 커스텀 실리콘이 최대 위협으로 부상.",
+      "bull": [
+        "엔비디아 ~80% 점유·Blackwell 풀생산에도 가격결정력 유지(총마진 70%대)",
+        "AMD MI350X/MI450 + 빅테크 채택으로 2강 구도, 인퍼런스 수요 확산",
+        "공급이 수요를 못 따라가는 구조(supply-constrained) 지속"
+      ],
+      "bear": [
+        "커스텀 ASIC(TPU·Trainium·브로드컴 XPU)이 AMD보다 큰 위협 — 범용 GPU 점유 잠식",
+        "거대 시총·기대 선반영 → 매분기 서프라이즈 허들 상승",
+        "중국 수출규제, AI capex 둔화 시 직격탄"
+      ]
+    },
+    {
+      "name": "커스텀 AI 실리콘·네트워킹 (ASIC)",
+      "tickers": ["AVGO"],
+      "sentiment": "긍정",
+      "summary": "빅테크 맞춤형 AI 칩(XPU) 수요 급증. 브로드컴 Q1 FY26 AI 매출 $8.4B(+106%), 커스텀 ASIC ~70% 점유, 고객 3→6곳(구글·메타·바이트댄스·앤트로픽·후지쯔·OpenAI), FY27 커스텀칩 $100B 목표.",
+      "bull": [
+        "커스텀 ASIC 시장 ~70% 지배 + 고객 3→6곳 확대로 파이프라인 견조",
+        "데이터센터 네트워킹(스위칭) 강자 — GPU 외 랙 전체 수혜",
+        "VMware 소프트웨어가 안정적 캐시플로우로 변동성 완충"
+      ],
+      "bear": [
+        "소수 빅테크 고객 집중 — 계약 변경/축소 시 충격",
+        "네트워킹 비중 둔화(AI매출 40%→30%) 자체 언급",
+        "VMware 인수 차입 부담, AI capex 사이클 의존"
+      ]
+    },
+    {
+      "name": "팹리스 (AI 커넥티비티·IP)",
+      "tickers": ["MRVL", "ALAB", "CRDO", "QCOM", "RMBS"],
+      "sentiment": "긍정",
+      "summary": "AI 랙 내부 고속 인터커넥트·커스텀 실리콘·메모리 IP가 핫. Credo AEC 급성장, Astera PCIe6, Marvell 커스텀 TAM 상향, Rambus HBM4E IP.",
+      "bull": [
+        "AI 데이터센터 고속 연결(AEC·PCIe6·옵티컬) 수요 폭증 — Credo·Astera 급성장",
+        "Marvell 커스텀 실리콘 'TAM 두 배론'·FY28 매출 목표 상향",
+        "Rambus HBM4E 컨트롤러 IP 등 메모리 IP가 AI 메모리 붐 수혜"
+      ],
+      "bear": [
+        "고밸류·기대 선반영(특히 ALAB·CRDO) — 호실적에도 차익실현 빈번",
+        "소수 하이퍼스케일러 고객 집중 + 마진 둔화 가이드(ALAB 76→73%)",
+        "QCOM은 스마트폰 의존·애플 모뎀 자체화 등 본업 리스크 상존"
+      ]
+    },
+    {
+      "name": "파운드리",
+      "tickers": ["TSM"],
+      "sentiment": "긍정",
+      "summary": "AI/HPC 수요로 가동률·마진 동반 개선. TSMC 2026 CapEx $52~56B(+~32%)로 증설, 2nm(N2) 월 8~9만장까지 램프 목표, FY26 성장률 '30%+'. CEO는 '버블' 우려 일축하되 신중 투자 강조.",
+      "bull": [
+        "AI 공급망의 핵심 병목 — 선단공정 사실상 독점적 지위",
+        "2nm(N2) 램프(연말 8~9만장 목표)로 다음 성장 레그 + 2027까지 공급 타이트",
+        "총마진 66%·ROE 40%대로 수익성 최상위"
+      ],
+      "bear": [
+        "환율(대만달러 강세)이 달러 환산 마진 직접 압박",
+        "미국·일본 해외팹 초기 가동은 원가·마진 희석",
+        "지정학(대만·관세) 리스크가 상시 디스카운트 요인"
+      ]
+    },
+    {
+      "name": "반도체 장비",
+      "tickers": ["ASML", "LRCX", "AMAT", "KLAC", "TER"],
+      "sentiment": "긍정",
+      "summary": "파운드리·메모리 CapEx 상향의 직접 수혜. TSMC $56B·2nm/1.4nm 리소 집약도 상승으로 ASML EUV 매출 ~30% 성장 모델. 다만 중국 매출 비중(ASML ~42%)과 수출규제가 하방 변수.",
+      "bull": [
+        "TSMC capex 상향 → EUV 리소 집약도 최대 수혜(ASML +30% EUV 모델)",
+        "High-NA EUV 램프·2nm 이하 선단공정 이행으로 장비 단가 상승",
+        "ASML EUV 독점 등 진입장벽 높은 과점 구조 + 대만 매출 +175% YoY"
+      ],
+      "bear": [
+        "중국 매출 비중 크나 대중 판매 -23.6% YoY — 수출규제가 핵심 하방 변수",
+        "CapEx는 후행·변동성이 커 주문 급감 리스크",
+        "메모리·파운드리 사이클이 꺾이면 가장 먼저 둔화"
+      ]
+    },
+    {
+      "name": "전력 반도체",
+      "tickers": ["MPWR", "ON", "NXPI", "NVTS", "STM"],
+      "sentiment": "중립",
+      "summary": "AI 데이터센터 전력공급(800V·고전압 전환)·GaN/SiC가 새 성장축. 전장(자동차) 반도체는 바닥 통과 후 회복 조짐.",
+      "bull": [
+        "AI 데이터센터 전력 수요 급증(NVIDIA 800V 아키텍처) → MPWR·Navitas 수혜",
+        "전장·산업 반도체 재고 소진 후 회복 시작(온세미 자동차 첫 성장 등)",
+        "GaN·SiC 등 차세대 전력반도체 채택 확대"
+      ],
+      "bear": [
+        "자동차·산업 수요는 매크로·재고 사이클에 민감",
+        "범용 영역의 중국 경쟁·가격 압박",
+        "Navitas 등 일부는 적자·소규모로 변동성 매우 큼"
+      ]
+    },
+    {
+      "name": "반도체 IP·설계 (CPU IP·EDA)",
+      "tickers": ["ARM"],
+      "sentiment": "긍정",
+      "summary": "Armv9 단가 상승 + 데이터센터 진출. DC 로열티 2년 연속 2배+, 상위 하이퍼스케일러 Arm CPU 점유 ~50%. AGI CPU 수요 $2B+(FY27~28), FY26~31 로열티 CAGR 20% 목표, 칩 매출 $15B 타깃.",
+      "bull": [
+        "Armv9·컴퓨트 서브시스템 침투로 로열티 단가 상승(로열티 CAGR 14%→20% 목표)",
+        "하이퍼스케일러 Arm 서버칩 램프 — 상위 HS Arm CPU 점유 ~50% + AGI CPU $2B+ 수요",
+        "라이선스 선행 → 향후 로열티 성장 가시성"
+      ],
+      "bear": [
+        "고밸류(PER 부담) — 성장 기대가 크게 선반영(1년 +111%)",
+        "자체 칩(AGI CPU) 진출이 고객(팹리스)과 경쟁·마진 희석",
+        "로열티는 스마트폰 출하·매크로에 민감"
+      ]
+    },
+    {
+      "name": "AI 데이터센터·뉴클라우드",
+      "tickers": ["NBIS", "CRWV", "IREN"],
+      "sentiment": "중립",
+      "summary": "AI GPU 클라우드(뉴클라우드) 급성장. CoreWeave 백로그 $99.4B, Nebius 매출 +684%, IREN 확보전력 5GW·NVIDIA 계약. 매출은 폭증하나 대규모 CapEx·적자·희석·고객집중이 공통 리스크.",
+      "bull": [
+        "전력·부지 확보가 AI 인프라 최대 병목 — 희소 자산 5GW 확보",
+        "NVIDIA 앵커 계약 + DSX 인프라 파트너십으로 miner→AI 클라우드 전환",
+        "가동전력 210MW→480MW(YE26) 램프로 매출 가시성 확대"
+      ],
+      "bear": [
+        "MSFT 55%(2026 매출) 등 고객 집중 — 계약 변경 시 충격",
+        "AI capex 일시정지·전력장비/GPU 인도 지연이 매출 인식 이연",
+        "대규모 CapEx → 증자·차입 희석/이자 부담·스토리 밸류"
+      ]
+    },
+    {
+      "name": "하이퍼스케일러 (클라우드 AI CapEx)",
+      "tickers": ["MSFT", "GOOGL", "AMZN", "META", "ORCL"],
+      "sentiment": "중립",
+      "summary": "2026 5대 업체 CapEx $660~690B(전년비 +36%)로 사상 최대. 수요는 여전히 공급초과이나, 총 현금 capex가 3Q26경 영업현금흐름을 추월하고 $662B 규모 미개시 리스 약정이 부외로 잠재 — '생산성 스토리→자금 스토리' 전환 논쟁 심화.",
+      "bull": [
+        "전원이 '수요 초과' 상태 — 클라우드 백로그 크고 증가 중",
+        "AI 추론(인퍼런스) 워크로드가 실사용 단계로 확산",
+        "capex는 GDP의 ~2.2% 규모지만 상당 부분 FCF로 충당"
+      ],
+      "bear": [
+        "총 현금 capex가 3Q26경 영업현금흐름 추월 → 외부 자금(차입) 의존 확대",
+        "미개시 데이터센터 리스 약정 ~$662B 부외 — 실제 부담 과소계상",
+        "ROI 회수가 현금흐름보다 늦으면 'AI 부채 버블'로 불안정화 우려"
+      ]
+    },
+    {
+      "name": "AI 소프트웨어·데이터·보안",
+      "tickers": ["PLTR", "SNOW", "NOW", "CRWD", "DDOG"],
+      "sentiment": "중립",
+      "summary": "AI 제품의 실매출 전환은 가속(Palantir AIP·Snowflake Cortex·Datadog LLM 관측)되나, 극단적 밸류에이션으로 호실적에도 주가 변동성이 큼.",
+      "bull": [
+        "AI 제품 채택 가속 — Palantir US커머셜 고성장, Datadog 매출 첫 $1B 돌파",
+        "강한 RPO·순매출유지율·FCF 마진 등 SaaS 펀더멘털 견조",
+        "데이터·보안 플랫폼화(Snowflake·CrowdStrike)로 락인 강화"
+      ],
+      "bear": [
+        "극단적 고밸류 → 호실적에도 주가 급락 빈번(NOW·CRWD 등)",
+        "AI 수익화 ROI·지속성에 대한 시장 의문",
+        "매크로 IT 지출 둔화 시 성장률 감속 리스크"
+      ]
+    },
+    {
+      "name": "광학·레이저·지향성에너지 (방산)",
+      "tickers": ["LASR"],
+      "sentiment": "긍정",
+      "summary": "방산 지향성에너지(레이저 무기) 수주 가시화. nLIGHT, Lockheed와 JLWS 프로그램 선정 — 초기 $86M 중 $44M 수주, 총 상한 $847M. 150kW→300~500kW 스케일업 로드맵. DE 시장 2026 $7.5B→2033 $33B(CAGR 18%).",
+      "bull": [
+        "JLWS(대드론·순항미사일 레이저) 선정 — nLIGHT $44M 수주·상한 $847M로 방산 매출 가시성 급상승",
+        "저마진 산업용 축소($25~30M 헤드윈드)를 A&D 고성장이 상쇄, HELSI 500kW 로드맵",
+        "롱몬트 5만ft² 증설로 캐파 2배 — 정부·방위 예산 사이클 안정성"
+      ],
+      "bear": [
+        "산업용 이탈 헤드윈드($25~30M)로 2026 상반 매출 성장 제약",
+        "정부 예산·개발계약 진행에 실적이 좌우(프로그램 지연 리스크)",
+        "소형주 변동성·얇은 수익성(GAAP 영업이익률 낮음)"
+      ]
+    }
+  ]
+}
+</script>
+<script type="application/json" class="__sectorhist" data-date="2026-06-28">{
+  "updated": "2026-06-28",
+  "cycle": "5일 주기",
   "note": "공개 자료 기반 시장 시각 요약(자동 생성). 투자 권유 아님.",
   "sectors": [
     {
@@ -437,6 +643,207 @@
   ]
 }
 </script>
+<script type="application/json" class="__sectorhist" data-date="2026-07-11">{
+  "updated": "2026-07-11",
+  "cycle": "5일 주기",
+  "note": "공개 자료 기반 시장 시각 요약(자동 생성). 투자 권유 아님.",
+  "sectors": [
+    {
+      "name": "메모리 (DRAM·HBM·NAND)",
+      "tickers": ["MU", "005930", "000660", "SNDK"],
+      "sentiment": "긍정",
+      "summary": "AI가 견인하는 메모리 슈퍼사이클 지속. 2026 HBM 시장 $54.6B(+58%, BofA), HBM3E→HBM4 전환 진행. DRAM 가격은 2025초 대비 약 2배로 뛰며 일반 DRAM까지 품귀. 업계 이익 피크는 2027 4Q 이전엔 도래하지 않는다는 시각.",
+      "bull": [
+        "수요 주도형 사이클 — AI 워크로드가 구조적으로 메모리 폭증 유발(HBM이 DRAM 웨이퍼 23% 잠식)",
+        "2026 HBM $54.6B(+58%)·커스텀 ASIC용 HBM 수요 +82%(골드만) — 가격 가시성↑",
+        "트로프 재고·YoY 가격 피크·주가 변곡 3요건 미충족 → 이익 피크 2027 4Q 이후로 이연 시각"
+      ],
+      "bear": [
+        "HBM 가격은 2026 이후 경쟁·증설로 조정, 2027 이후 오버서플라이 리스크(추정)",
+        "메모리세(memory tax)로 스마트폰 -12.9%·PC -11.3% 출하 위축 → 후방 수요 훼손",
+        "포워드 추정이 '사이클 불멸' 가정 — AI capex·가격 균열 시 실적·멀티플 동반 붕괴"
+      ]
+    },
+    {
+      "name": "AI 가속기 GPU",
+      "tickers": ["NVDA", "AMD"],
+      "sentiment": "긍정",
+      "summary": "데이터센터 GPU 수요 지속. 엔비디아 FY26 DC 매출 $193.7B·AI가속기 점유 ~80%, AMD는 MI350X/MI450로 5~7% 점유 추격. 다만 커스텀 실리콘이 최대 위협으로 부상.",
+      "bull": [
+        "엔비디아 ~80% 점유·Blackwell 풀생산에도 가격결정력 유지(총마진 70%대)",
+        "AMD MI350X/MI450 + 빅테크 채택으로 2강 구도, 인퍼런스 수요 확산",
+        "공급이 수요를 못 따라가는 구조(supply-constrained) 지속"
+      ],
+      "bear": [
+        "커스텀 ASIC(TPU·Trainium·브로드컴 XPU)이 AMD보다 큰 위협 — 범용 GPU 점유 잠식",
+        "거대 시총·기대 선반영 → 매분기 서프라이즈 허들 상승",
+        "중국 수출규제, AI capex 둔화 시 직격탄"
+      ]
+    },
+    {
+      "name": "커스텀 AI 실리콘·네트워킹 (ASIC)",
+      "tickers": ["AVGO"],
+      "sentiment": "긍정",
+      "summary": "빅테크 맞춤형 AI 칩(XPU) 수요 급증. 브로드컴 Q1 FY26 AI 매출 $8.4B(+106%), 커스텀 ASIC ~70% 점유, 고객 3→6곳(구글·메타·바이트댄스·앤트로픽·후지쯔·OpenAI), FY27 커스텀칩 $100B 목표.",
+      "bull": [
+        "커스텀 ASIC 시장 ~70% 지배 + 고객 3→6곳 확대로 파이프라인 견조",
+        "데이터센터 네트워킹(스위칭) 강자 — GPU 외 랙 전체 수혜",
+        "VMware 소프트웨어가 안정적 캐시플로우로 변동성 완충"
+      ],
+      "bear": [
+        "소수 빅테크 고객 집중 — 계약 변경/축소 시 충격",
+        "네트워킹 비중 둔화(AI매출 40%→30%) 자체 언급",
+        "VMware 인수 차입 부담, AI capex 사이클 의존"
+      ]
+    },
+    {
+      "name": "팹리스 (AI 커넥티비티·IP)",
+      "tickers": ["MRVL", "ALAB", "CRDO", "QCOM", "RMBS"],
+      "sentiment": "긍정",
+      "summary": "AI 랙 내부 고속 인터커넥트·커스텀 실리콘·메모리 IP가 핫. Credo AEC 급성장, Astera PCIe6, Marvell 커스텀 TAM 상향, Rambus HBM4E IP.",
+      "bull": [
+        "AI 데이터센터 고속 연결(AEC·PCIe6·옵티컬) 수요 폭증 — Credo·Astera 급성장",
+        "Marvell 커스텀 실리콘 'TAM 두 배론'·FY28 매출 목표 상향",
+        "Rambus HBM4E 컨트롤러 IP 등 메모리 IP가 AI 메모리 붐 수혜"
+      ],
+      "bear": [
+        "고밸류·기대 선반영(특히 ALAB·CRDO) — 호실적에도 차익실현 빈번",
+        "소수 하이퍼스케일러 고객 집중 + 마진 둔화 가이드(ALAB 76→73%)",
+        "QCOM은 스마트폰 의존·애플 모뎀 자체화 등 본업 리스크 상존"
+      ]
+    },
+    {
+      "name": "파운드리",
+      "tickers": ["TSM"],
+      "sentiment": "긍정",
+      "summary": "AI/HPC 수요로 가동률·마진 동반 개선. TSMC 2026 CapEx $52~56B(+~32%)로 증설, 2nm(N2) 월 8~9만장까지 램프 목표, FY26 성장률 '30%+'. CEO는 '버블' 우려 일축하되 신중 투자 강조.",
+      "bull": [
+        "AI 공급망의 핵심 병목 — 선단공정 사실상 독점적 지위",
+        "2nm(N2) 램프(연말 8~9만장 목표)로 다음 성장 레그 + 2027까지 공급 타이트",
+        "총마진 66%·ROE 40%대로 수익성 최상위"
+      ],
+      "bear": [
+        "환율(대만달러 강세)이 달러 환산 마진 직접 압박",
+        "미국·일본 해외팹 초기 가동은 원가·마진 희석",
+        "지정학(대만·관세) 리스크가 상시 디스카운트 요인"
+      ]
+    },
+    {
+      "name": "반도체 장비",
+      "tickers": ["ASML", "LRCX", "AMAT", "KLAC", "TER"],
+      "sentiment": "긍정",
+      "summary": "파운드리·메모리 CapEx 상향의 직접 수혜. TSMC $56B·2nm/1.4nm 리소 집약도 상승으로 ASML EUV 매출 ~30% 성장 모델. 다만 중국 매출 비중(ASML ~42%)과 수출규제가 하방 변수.",
+      "bull": [
+        "TSMC capex 상향 → EUV 리소 집약도 최대 수혜(ASML +30% EUV 모델)",
+        "High-NA EUV 램프·2nm 이하 선단공정 이행으로 장비 단가 상승",
+        "ASML EUV 독점 등 진입장벽 높은 과점 구조 + 대만 매출 +175% YoY"
+      ],
+      "bear": [
+        "중국 매출 비중 크나 대중 판매 -23.6% YoY — 수출규제가 핵심 하방 변수",
+        "CapEx는 후행·변동성이 커 주문 급감 리스크",
+        "메모리·파운드리 사이클이 꺾이면 가장 먼저 둔화"
+      ]
+    },
+    {
+      "name": "전력 반도체",
+      "tickers": ["MPWR", "ON", "NXPI", "NVTS", "STM"],
+      "sentiment": "중립",
+      "summary": "AI 데이터센터 전력공급(800V·고전압 전환)·GaN/SiC가 새 성장축. 전장(자동차) 반도체는 바닥 통과 후 회복 조짐.",
+      "bull": [
+        "AI 데이터센터 전력 수요 급증(NVIDIA 800V 아키텍처) → MPWR·Navitas 수혜",
+        "전장·산업 반도체 재고 소진 후 회복 시작(온세미 자동차 첫 성장 등)",
+        "GaN·SiC 등 차세대 전력반도체 채택 확대"
+      ],
+      "bear": [
+        "자동차·산업 수요는 매크로·재고 사이클에 민감",
+        "범용 영역의 중국 경쟁·가격 압박",
+        "Navitas 등 일부는 적자·소규모로 변동성 매우 큼"
+      ]
+    },
+    {
+      "name": "반도체 IP·설계 (CPU IP·EDA)",
+      "tickers": ["ARM"],
+      "sentiment": "긍정",
+      "summary": "Armv9 단가 상승 + 데이터센터 진출. DC 로열티 2년 연속 2배+, 상위 하이퍼스케일러 Arm CPU 점유 ~50%. AGI CPU 수요 $2B+(FY27~28), FY26~31 로열티 CAGR 20% 목표, 칩 매출 $15B 타깃.",
+      "bull": [
+        "Armv9·컴퓨트 서브시스템 침투로 로열티 단가 상승(로열티 CAGR 14%→20% 목표)",
+        "하이퍼스케일러 Arm 서버칩 램프 — 상위 HS Arm CPU 점유 ~50% + AGI CPU $2B+ 수요",
+        "라이선스 선행 → 향후 로열티 성장 가시성"
+      ],
+      "bear": [
+        "고밸류(PER 부담) — 성장 기대가 크게 선반영(1년 +111%)",
+        "자체 칩(AGI CPU) 진출이 고객(팹리스)과 경쟁·마진 희석",
+        "로열티는 스마트폰 출하·매크로에 민감"
+      ]
+    },
+    {
+      "name": "AI 데이터센터·뉴클라우드",
+      "tickers": ["NBIS", "CRWV", "IREN"],
+      "sentiment": "중립",
+      "summary": "AI GPU 클라우드(뉴클라우드) 급성장. CoreWeave 백로그 $99.4B, Nebius 매출 +684%, IREN 확보전력 5GW·NVIDIA 계약. 매출은 폭증하나 대규모 CapEx·적자·희석·고객집중이 공통 리스크.",
+      "bull": [
+        "전력·부지 확보가 AI 인프라 최대 병목 — 희소 자산 5GW 확보",
+        "NVIDIA 앵커 계약 + DSX 인프라 파트너십으로 miner→AI 클라우드 전환",
+        "가동전력 210MW→480MW(YE26) 램프로 매출 가시성 확대"
+      ],
+      "bear": [
+        "MSFT 55%(2026 매출) 등 고객 집중 — 계약 변경 시 충격",
+        "AI capex 일시정지·전력장비/GPU 인도 지연이 매출 인식 이연",
+        "대규모 CapEx → 증자·차입 희석/이자 부담·스토리 밸류"
+      ]
+    },
+    {
+      "name": "하이퍼스케일러 (클라우드 AI CapEx)",
+      "tickers": ["MSFT", "GOOGL", "AMZN", "META", "ORCL"],
+      "sentiment": "중립",
+      "summary": "2026 5대 업체 CapEx $660~690B(전년비 +36%)로 사상 최대. 수요는 여전히 공급초과이나, 총 현금 capex가 3Q26경 영업현금흐름을 추월하고 $662B 규모 미개시 리스 약정이 부외로 잠재 — '생산성 스토리→자금 스토리' 전환 논쟁 심화.",
+      "bull": [
+        "전원이 '수요 초과' 상태 — 클라우드 백로그 크고 증가 중",
+        "AI 추론(인퍼런스) 워크로드가 실사용 단계로 확산",
+        "capex는 GDP의 ~2.2% 규모지만 상당 부분 FCF로 충당"
+      ],
+      "bear": [
+        "총 현금 capex가 3Q26경 영업현금흐름 추월 → 외부 자금(차입) 의존 확대",
+        "미개시 데이터센터 리스 약정 ~$662B 부외 — 실제 부담 과소계상",
+        "ROI 회수가 현금흐름보다 늦으면 'AI 부채 버블'로 불안정화 우려"
+      ]
+    },
+    {
+      "name": "AI 소프트웨어·데이터·보안",
+      "tickers": ["PLTR", "SNOW", "NOW", "CRWD", "DDOG"],
+      "sentiment": "중립",
+      "summary": "AI 제품의 실매출 전환은 가속(Palantir AIP·Snowflake Cortex·Datadog LLM 관측)되나, 극단적 밸류에이션으로 호실적에도 주가 변동성이 큼.",
+      "bull": [
+        "AI 제품 채택 가속 — Palantir US커머셜 고성장, Datadog 매출 첫 $1B 돌파",
+        "강한 RPO·순매출유지율·FCF 마진 등 SaaS 펀더멘털 견조",
+        "데이터·보안 플랫폼화(Snowflake·CrowdStrike)로 락인 강화"
+      ],
+      "bear": [
+        "극단적 고밸류 → 호실적에도 주가 급락 빈번(NOW·CRWD 등)",
+        "AI 수익화 ROI·지속성에 대한 시장 의문",
+        "매크로 IT 지출 둔화 시 성장률 감속 리스크"
+      ]
+    },
+    {
+      "name": "광학·레이저·지향성에너지 (방산)",
+      "tickers": ["LASR"],
+      "sentiment": "긍정",
+      "summary": "방산 지향성에너지(레이저 무기) 수주 가시화. nLIGHT, Lockheed와 JLWS 프로그램 선정 — 초기 $86M 중 $44M 수주, 총 상한 $847M. 150kW→300~500kW 스케일업 로드맵. DE 시장 2026 $7.5B→2033 $33B(CAGR 18%).",
+      "bull": [
+        "JLWS(대드론·순항미사일 레이저) 선정 — nLIGHT $44M 수주·상한 $847M로 방산 매출 가시성 급상승",
+        "저마진 산업용 축소($25~30M 헤드윈드)를 A&D 고성장이 상쇄, HELSI 500kW 로드맵",
+        "롱몬트 5만ft² 증설로 캐파 2배 — 정부·방위 예산 사이클 안정성"
+      ],
+      "bear": [
+        "산업용 이탈 헤드윈드($25~30M)로 2026 상반 매출 성장 제약",
+        "정부 예산·개발계약 진행에 실적이 좌우(프로그램 지연 리스크)",
+        "소형주 변동성·얇은 수익성(GAAP 영업이익률 낮음)"
+      ]
+    }
+  ]
+}
+</script>
+<script id="__sectorsindex" type="application/json">{"dates":["2026-07-11","2026-06-28"]}</script>
 <script type="text/markdown" data-file="ORCL_preview_20260908.md">
 # 오라클(ORCL) | FQ1-27 실적 프리뷰 — 시장이 보는 기대 vs 우려
 ### 2026-09-08 실적발표 예정 · 프리뷰(발표 전)
@@ -4279,6 +4686,8 @@ CoreWeave는 AI/HPC용 GPU 클라우드 단일 사업 구조로, 하이퍼스케
 window.EMBEDDED={manifest:JSON.parse(document.getElementById("__manifest").textContent),content:{}};
 var __e=document.getElementById("__earnings"); if(__e){ try{ window.EMBEDDED.earnings=JSON.parse(__e.textContent); }catch(e){} }
 var __s=document.getElementById("__sectors"); if(__s){ try{ window.EMBEDDED.sectors=JSON.parse(__s.textContent); }catch(e){} }
+var __si=document.getElementById("__sectorsindex"); if(__si){ try{ window.EMBEDDED.sectorsIndex=JSON.parse(__si.textContent); }catch(e){} }
+window.EMBEDDED.sectorsHistory={}; document.querySelectorAll("script.__sectorhist").forEach(function(h){ try{ window.EMBEDDED.sectorsHistory[h.dataset.date]=JSON.parse(h.textContent); }catch(e){} });
 document.querySelectorAll('script[type="text/markdown"]').forEach(function(s){window.EMBEDDED.content[s.dataset.file]=s.textContent.replace(/^\n/,"").replace(/\n$/,"");});
 </script>
 
@@ -4575,11 +4984,13 @@ async function loadEarnings(){
 }
 
 /* ===== 섹터 뷰 ===== */
-let SECTORS = null;
+let SECTORS = null, SECTORS_INDEX = null;
 const $secList = document.getElementById('secList');
 const $secNote = document.getElementById('secNote');
+const $secDate = document.getElementById('secDate');
 function sentClass(s){ return s==='긍정'?'pos':(s==='부정'?'neg':'neu'); }
-function renderSectors(){
+function renderSectors(){ renderSectorsData(SECTORS); }
+function renderSectorsData(SECTORS){
   if(!SECTORS || !SECTORS.sectors){ $secList.innerHTML='<div class="empty">섹터 데이터를 불러오지 못했습니다.</div>'; return; }
   $secNote.textContent = '🔭 '+(SECTORS.updated||'')+' 기준 · '+(SECTORS.cycle||'')+' 업데이트 · '+(SECTORS.note||'');
   $secList.innerHTML = SECTORS.sectors.map(function(s){
@@ -4604,9 +5015,27 @@ function renderSectors(){
     a.onclick=()=>{ switchView('reports'); const card=[...$list.querySelectorAll('.card')].find(c=>c.dataset.file===a.dataset.file); openReport(a.dataset.file,card,true); };
   });
 }
+async function loadSectorSnapshot(date){
+  if(window.EMBEDDED && window.EMBEDDED.sectorsHistory && window.EMBEDDED.sectorsHistory[date]) return window.EMBEDDED.sectorsHistory[date];
+  try{ const r=await fetch('reports/sectors-history/sectors_'+date.replace(/-/g,'')+'.json',{cache:'no-store'}); return await r.json(); }catch(e){ return null; }
+}
+function populateSecDates(){
+  const dates=(SECTORS_INDEX&&SECTORS_INDEX.dates)?SECTORS_INDEX.dates:[];
+  if(dates.length<=1){ $secDate.style.display='none'; return; }   // 과거 스냅샷이 2개 이상일 때만 노출
+  $secDate.innerHTML=dates.map((d,i)=>'<option value="'+d+'">'+d+(i===0?' (최신)':'')+'</option>').join('');
+  $secDate.style.display='';
+  $secDate.onchange=async ()=>{
+    const d=$secDate.value;
+    if(d===dates[0]){ renderSectorsData(SECTORS); return; }
+    const snap=await loadSectorSnapshot(d);
+    renderSectorsData(snap||SECTORS);
+  };
+}
 async function loadSectors(){
-  if(window.EMBEDDED && window.EMBEDDED.sectors){ SECTORS=window.EMBEDDED.sectors; return; }
-  try{ const r=await fetch('reports/sectors.json',{cache:'no-store'}); SECTORS=await r.json(); }catch(e){ SECTORS=null; }
+  if(window.EMBEDDED && window.EMBEDDED.sectors){ SECTORS=window.EMBEDDED.sectors; }
+  else { try{ const r=await fetch('reports/sectors.json',{cache:'no-store'}); SECTORS=await r.json(); }catch(e){ SECTORS=null; } }
+  if(window.EMBEDDED && window.EMBEDDED.sectorsIndex){ SECTORS_INDEX=window.EMBEDDED.sectorsIndex; }
+  else { try{ const r=await fetch('reports/sectors-index.json',{cache:'no-store'}); SECTORS_INDEX=await r.json(); }catch(e){ SECTORS_INDEX=null; } }
 }
 
 (async function init(){
@@ -4627,6 +5056,7 @@ async function loadSectors(){
   renderCalendar();
   await loadSectors();
   renderSectors();
+  populateSecDates();
   // deep link: #MU
   const tk = decodeURIComponent(location.hash.replace('#','')).toLowerCase();
   if(tk){
