@@ -1,9 +1,8 @@
 {
-  "updated": "2026-06-28",
+  "updated": "2026-07-12",
   "note": "날짜는 예정·추정이며 회사 공식 공지로 확정됩니다. 매일 자동 갱신됩니다.",
   "events": [
-    { "ticker": "005930", "company": "삼성전자", "market": "KR", "date": "2026-07-08", "quarter": "2026 2Q 잠정", "confirmed": false },
-    { "ticker": "ASML",   "company": "ASML",          "market": "US", "date": "2026-07-15", "quarter": "Q2 2026",      "confirmed": false },
+    { "ticker": "ASML",   "company": "ASML",          "market": "US", "date": "2026-07-15", "quarter": "Q2 2026",      "confirmed": true  },
     { "ticker": "TSM",    "company": "TSMC",           "market": "US", "date": "2026-07-16", "quarter": "Q2 2026",      "confirmed": true  },
     { "ticker": "TXN",    "company": "텍사스인스트루먼츠", "market": "US", "date": "2026-07-21", "quarter": "Q2 2026",      "confirmed": false },
     { "ticker": "GOOGL",  "company": "알파벳",          "market": "US", "date": "2026-07-22", "quarter": "Q2 2026",      "confirmed": false },
@@ -13,6 +12,7 @@
     { "ticker": "MSFT",   "company": "마이크로소프트",    "market": "US", "date": "2026-07-29", "quarter": "FQ4 2026",     "confirmed": false },
     { "ticker": "META",   "company": "메타",            "market": "US", "date": "2026-07-29", "quarter": "Q2 2026",      "confirmed": false },
     { "ticker": "QCOM",   "company": "퀄컴",            "market": "US", "date": "2026-07-30", "quarter": "FQ3 2026",     "confirmed": false },
+    { "ticker": "005930", "company": "삼성전자",         "market": "KR", "date": "2026-07-30", "quarter": "2026 2Q 확정",  "confirmed": false },
     { "ticker": "AMZN",   "company": "아마존",          "market": "US", "date": "2026-07-31", "quarter": "Q2 2026",      "confirmed": false },
     { "ticker": "NBIS",   "company": "네비우스",        "market": "US", "date": "2026-08-06", "quarter": "Q2 2026",      "confirmed": false },
     { "ticker": "CRWV",   "company": "코어위브",        "market": "US", "date": "2026-08-18", "quarter": "Q2 2026",      "confirmed": false },
